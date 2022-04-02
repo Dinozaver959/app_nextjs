@@ -1,0 +1,23 @@
+.submitButton {
+  font-size: 14px;
+  background-color: rgb(32, 34, 37);
+  color: rgb(138, 147, 155);
+  border-radius: 40px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.submitButton:hover {
+  color: rgb(230, 232, 235);
+  cursor: pointer;
+}
+
+.submitButton_noHover {
+  font-size: 14px;
+  background-color: rgb(32, 34, 37);
+  color: rgb(138, 147, 155);
+  border-radius: 40px;
+  padding: 5px;
+  margin: 5px;
+  opacity: 0.3;
+}
