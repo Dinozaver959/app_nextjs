@@ -16,8 +16,15 @@ a {
   text-decoration: none;
 }
 
+input {
+  color: rgb(32, 34, 37);
+}
+
+select {
+  color: rgb(32, 34, 37);
+}
+
 * {
   box-sizing: border-box;
   margin: 0px;
-  color: white;
 }

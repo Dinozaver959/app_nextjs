@@ -70,71 +70,82 @@ function ConfigureSmartContract() {
   return (
 
     <> 
-      <div> Configure Smart Contract</div><br></br>
+      <div className={styles.createTitle}> Configure Smart Contract</div><br></br>
 
       <form id="formToSubmit" method="post" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              
 
-        <Controller
-          name="collectionNameController"
-          control={control}
-          rules={{ required: true }}
+        <div className={styles.gridContainer}> 
 
-          value={selectedValue}
-          render={({ field }) => (
-            <AsyncSelect
-            {...field}
-              id="CollectionName"
-              name="CollectionName"
-              isClearable
-              defaultOptions
-              getOptionLabel={e => e.name}
-              getOptionValue={e => e.name}
-              loadOptions={loadOptions}
-              onInputChange={handleInputChange}
-            />   
-          )}
-        />     
-        {errors.collectionNameController && errors.collectionNameController.type === "required" && <span> required</span> }
-        <br></br>
-        
-        Max Supply: 
-        <input type="number" {...register('MAX_SUPPLY', { required: true, min : 3, max : 10000})}></input> 
-        {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "required" && <span>required</span> }
-        {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "max" && <span>Max size is 10000</span> }
-        {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "min" && <span>Min size is 3</span>}
-        <br></br>
+        <div className={styles.gridItem}></div>
+          <div className={styles.gridItem}>
+          <Controller
+            name="collectionNameController"
+            control={control}
+            rules={{ required: true }}
 
-        Mint Price: 
-        <input type="number" step="0.001" {...register('MINT_PRICE', { required: true, min : 0.01, max : 1})}></input> 
-        {errors.MINT_PRICE && errors.MINT_PRICE.type === "required" && <span>required</span> }
-        {errors.MINT_PRICE && errors.MINT_PRICE.type === "max" && <span>Max price is 1</span> }
-        {errors.MINT_PRICE && errors.MINT_PRICE.type === "min" && <span>Min price is 0.01</span>}
-        <br></br>
+            value={selectedValue}
+            render={({ field }) => (
+              <AsyncSelect
+              {...field}
+                id="CollectionName"
+                name="CollectionName"
+                isClearable
+                defaultOptions
+                getOptionLabel={e => e.name}
+                getOptionValue={e => e.name}
+                loadOptions={loadOptions}
+                onInputChange={handleInputChange}
+              />   
+            )}
+          />  
+          </div>
+          <div className={styles.gridItem}>
+          {errors.collectionNameController && errors.collectionNameController.type === "required" && <span> required</span> }
+          </div>
+  
+          <div className={styles.gridItem}> Max Supply: </div>
+          <input className={styles.gridItem} type="number" {...register('MAX_SUPPLY', { required: true, min : 3, max : 10000})}></input>
+          <div className={styles.gridItem}> 
+          {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "required" && <span>required</span> }
+          {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "max" && <span>Max size is 10000</span> }
+          {errors.MAX_SUPPLY && errors.MAX_SUPPLY.type === "min" && <span>Min size is 3</span>}
+          </div>   
 
-        Max amount To mint: 
-        <input type="number" name="MAX_TO_MINT" {...register('MAX_TO_MINT', { required: true, min : 1, max : 10})}></input> 
-        {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "required" && <span>required</span> }
-        {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "max" && <span>Max to mint by address is 10</span> }
-        {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "min" && <span>Min to mint by address is 3</span>}
-        <br></br>
+          <div className={styles.gridItem}> Mint Price: </div>
+          <input className={styles.gridItem} type="number" step="0.001" {...register('MINT_PRICE', { required: true, min : 0.01, max : 1})}></input> 
+          <div className={styles.gridItem}> 
+          {errors.MINT_PRICE && errors.MINT_PRICE.type === "required" && <span>required</span> }
+          {errors.MINT_PRICE && errors.MINT_PRICE.type === "max" && <span>Max price is 1</span> }
+          {errors.MINT_PRICE && errors.MINT_PRICE.type === "min" && <span>Min price is 0.01</span>}
+          </div>
 
-        Token Name: 
-        <input type="text" {...register('_NAME_', { required: true, minLength : 4, maxLength : 16})}></input> 
-        {errors._NAME_ && errors._NAME_.type === "required" && <span>required</span> }
-        {errors._NAME_ && errors._NAME_.type === "maxLength" && <span>Max length is 16 chars</span> }
-        {errors._NAME_ && errors._NAME_.type === "minLength" && <span>Min length is 4 chars</span>}
-        <br></br>
+          <div className={styles.gridItem}> Max amount To mint: </div>
+          <input className={styles.gridItem} type="number" name="MAX_TO_MINT" {...register('MAX_TO_MINT', { required: true, min : 1, max : 100})}></input> 
+          <div className={styles.gridItem}> 
+          {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "required" && <span>required</span> }
+          {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "max" && <span>Max is 100</span> }
+          {errors.MAX_TO_MINT && errors.MAX_TO_MINT.type === "min" && <span>Min is 1</span>}
+          </div>
 
-        Token Symbol: 
-        <input type="text" {...register('_SYMBOL_', { required: true, minLength : 2, maxLength : 4})}></input> 
-        {errors._SYMBOL_ && errors._SYMBOL_.type === "required" && <span>required</span> }
-        {errors._SYMBOL_ && errors._SYMBOL_.type === "maxLength" && <span>Max length is 4 chars</span> }
-        {errors._SYMBOL_ && errors._SYMBOL_.type === "minLength" && <span>Min length is 2 chars</span>}
-        <br></br>
-        <br></br>
+          <div className={styles.gridItem}> Token Name: </div>   
+          <input className={styles.gridItem} type="text" {...register('_NAME_', { required: true, minLength : 4, maxLength : 16})}></input> 
+          <div className={styles.gridItem}>
+          {errors._NAME_ && errors._NAME_.type === "required" && <span>required</span> }
+          {errors._NAME_ && errors._NAME_.type === "maxLength" && <span>Max length is 16 chars</span> }
+          {errors._NAME_ && errors._NAME_.type === "minLength" && <span>Min length is 4 chars</span>}
+          </div>
 
+          <div className={styles.gridItem}> Token Symbol: </div>  
+          <input className={styles.gridItem} type="text" {...register('_SYMBOL_', { required: true, minLength : 2, maxLength : 4})}></input> 
+          <div className={styles.gridItem}>
+          {errors._SYMBOL_ && errors._SYMBOL_.type === "required" && <span>required</span> }
+          {errors._SYMBOL_ && errors._SYMBOL_.type === "maxLength" && <span>Max length is 4 chars</span> }
+          {errors._SYMBOL_ && errors._SYMBOL_.type === "minLength" && <span>Min length is 2 chars</span>}
+          </div>
 
-        <input id="SubmitButton" className={styles.submitButton} type="submit" value="Submit" ref={refButton} ></input>
+          <input id="SubmitButton" className={styles.submitButton} type="submit" value="Submit" ref={refButton} ></input>
+        </div>
+
       </form>
 
       <p id="submitFeedback" hidden></p>

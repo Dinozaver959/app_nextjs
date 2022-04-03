@@ -21,38 +21,38 @@ function CreateHeader() {
         <div className={styles.wrapper}>
             <div className={styles.headerItems}> 
 
-                <Link href="/create/dashboard"> 
+                <Link href="/create/dashboard" passHref> 
                     <div className={styles.headerItem}>
                         Dashboard
                     </div>
                 </Link>
 
-                <Link href="/create/uploadimages"> 
+                <Link href="/create/uploadimages" passHref> 
                     <div className={styles.headerItem}>
                         Upload Images
                     </div>
                 </Link>
 
                 {/* <Link href="/api/api-getCollectionNames">  */}
-                <Link href="/create/uploadmetadata"> 
+                <Link href="/create/uploadmetadata" passHref> 
                     <div className={styles.headerItem}>
                         Upload MetaData
                     </div>
                 </Link>
 
-                <Link href="/create/configureSmartContract"> 
+                <Link href="/create/configureSmartContract" passHref> 
                     <div className={styles.headerItem}>
                         Configure smart contract
                     </div>
                 </Link>
 
-                <Link href="/create/deploy"> 
+                <Link href="/create/deploy" passHref> 
                     <div className={styles.headerItem}>
                         Deploy
                     </div>
                 </Link>
 
-                <Link href="/create/interact"> 
+                <Link href="/create/interact" passHref> 
                     <div className={styles.headerItem}>
                         Interact
                     </div>

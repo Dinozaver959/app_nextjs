@@ -94,7 +94,7 @@ function UploadImages() {
   return (
     
     <> 
-      <div>Upload the Collection's Metadata</div><br></br>
+      <div className={styles.createTitle}>Upload the Collection&apos;s Metadata</div><br></br>
 
       <form id="formToSubmit" method="post" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              
 

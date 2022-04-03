@@ -44,10 +44,10 @@ function UploadImages() {
         PreReveal image: <input name="uploadPreRevealImage" id="uploadPreRevealImage" type="file"></input>  
         <br></br>
 
-        Collection's images: <input name="uploadMultipleImages" id="uploadMultipleImages" type="file" multiple="multiple"></input>      
+        Collection&apos;s images: <input name="uploadMultipleImages" id="uploadMultipleImages" type="file" multiple="multiple"></input>      
         <br></br>
 
-        Collection's description: <input name="CollectionDescription" id="CollectionDescription" type="text" width="200" height="80" defaultValue="Sample description" minLength="4" maxLength="240" ></input>
+        Collection&apos;s description: <input name="CollectionDescription" id="CollectionDescription" type="text" width="200" height="80" defaultValue="Sample description" minLength="4" maxLength="240" ></input>
         <br></br>
         <br></br>
 

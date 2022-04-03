@@ -9,24 +9,45 @@ export async function CheckTotalSupply_Moralis(collectionName) {
   const supply_hex = await MoralisRead(collectionName, "totalSupply"); // will give an array with a hex value
   const supply = parseInt(supply_hex['_hex'], 16);
   console.log("supply: " + supply);
+
+  document.getElementById('Interact_TotalSupplyDisplay').innerText = supply;
+  document.getElementById('Interact_TotalSupplyDisplay').style.visibility = "visible";
+}
+
+export async function CheckOwner_Moralis(collectionName) {
+  // add a check for correct network
+  const owner = await MoralisRead(collectionName, "owner");
+  console.log("owner: " + owner);
+
+  document.getElementById('Interact_CheckOwnerDisplay').innerText = owner;
+  document.getElementById('Interact_CheckOwnerDisplay').style.visibility = "visible";
 }
 
 export async function CheckContractName_Moralis(collectionName) {
   // add a check for correct network
   const name = await MoralisRead(collectionName, "name");
   console.log("name: " + name);
+
+  document.getElementById('Interact_CheckContractNameDisplay').innerText = name;
+  document.getElementById('Interact_CheckContractNameDisplay').style.visibility = "visible";
 }
 
 export async function CheckContractSymbol_Moralis(collectionName) {
   // add a check for correct network
   const symbol = await MoralisRead(collectionName, "symbol");
   console.log("symbol: " + symbol);
+
+  document.getElementById('Interact_CheckContractSymbolDisplay').innerText = symbol;
+  document.getElementById('Interact_CheckContractSymbolDisplay').style.visibility = "visible";
 }
 
 export async function CheckSaleActive_Moralis(collectionName) {
   // add a check for correct network
   const saleActive = await MoralisRead(collectionName, "saleActive");
   console.log("saleActive: " + saleActive);
+
+  document.getElementById('Interact_CheckSaleActiveDisplay').innerText = saleActive;
+  document.getElementById('Interact_CheckSaleActiveDisplay').style.visibility = "visible";
 }
 
 export async function CheckTokenURI_Moralis(collectionName) {
@@ -38,20 +59,19 @@ export async function CheckTokenURI_Moralis(collectionName) {
 
   const tokenURI = await MoralisRead_(collectionName, "tokenURI", params);
   console.log("tokenURI: " + tokenURI);
+
+  document.getElementById('Interact_CheckToken_0URIDisplay').innerText = tokenURI;
+  document.getElementById('Interact_CheckToken_0URIDisplay').style.visibility = "visible";
 }
 
 export async function CheckIfRevealed_Moralis(collectionName) {
   // add a check for correct network
   const revealed = await MoralisRead(collectionName, "revealed");
   console.log("revealed: " + revealed);
-}
 
-export async function CheckOwner_Moralis(collectionName) {
-  // add a check for correct network
-  const owner = await MoralisRead(collectionName, "owner");
-  console.log("owner: " + owner);
+  document.getElementById('Interact_CheckIfRevealedDisplay').innerText = revealed;
+  document.getElementById('Interact_CheckIfRevealedDisplay').style.visibility = "visible";
 }
-
 
 async function MoralisRead(collectionName, method) {
   return MoralisRead_(collectionName, method, {})

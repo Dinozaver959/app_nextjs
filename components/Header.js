@@ -26,7 +26,7 @@ function Header() {
   return (
     <div className={style.wrapper}>
 
-        <Link href="/">
+        <Link href="/" passHref>
         
             <div className={style.logoContainer}>
                 {/*<Image src={logo} height={50} width={50} alt="" /> */}
@@ -48,10 +48,10 @@ function Header() {
 */}
 
         <div className={style.headerItems}>
-            <Link href="/UpcomingCollections">
+            <Link href="/UpcomingCollections" passHref>
                 <div className={style.headerItem}> Upcoming Collections </div>
             </Link >
-            <Link href="/create/dashboard"> 
+            <Link href="/create/dashboard" passHref> 
                 <div className={style.headerItem}> Create </div>
             </Link>
             <div className={style.headerIcon}><FaDiscord/></div>

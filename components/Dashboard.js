@@ -41,9 +41,9 @@ function  Dashboard() {
     var str = "";
     for(let i = 0; i < attributes.length; i++){
       str += attributes[i] + " ";
-      console.log("attribute_i: " + attributes[i])
+      //console.log("attribute_i: " + attributes[i])
     }
-    console.log("str: " + str);
+    //console.log("str: " + str);
     return str;
   }
 
@@ -57,7 +57,7 @@ function  Dashboard() {
 
   return (
     <> 
-      <div> Dashboard </div><br></br>
+      <div className={styles.createTitle}> Dashboard </div><br></br>
 
 
 
@@ -68,21 +68,21 @@ function  Dashboard() {
               <table>
                 <thead>
                 <tr>
-                  <th className={styles.headerElement}>collection name</th>
-                  <th>description</th>
+                  <th className={style.headerElement}>collection name</th>
+                  <th className={style.headerElement}>description</th>
 
-                  <th className={styles.headerElement}>max supply</th>
-                  <th className={styles.headerElement}>mint price</th>
-                  <th className={styles.headerElement}>max to mint</th>
-                  <th className={styles.headerElement}>token name</th>
-                  <th className={styles.headerElement}>token symbol</th>
+                  <th className={style.headerElement}>max supply</th>
+                  <th className={style.headerElement}>mint price</th>
+                  <th className={style.headerElement}>max to mint</th>
+                  <th className={style.headerElement}>token name</th>
+                  <th className={style.headerElement}>token symbol</th>
 
-                  <th className={styles.headerElement}>prereveal link</th>
-                  <th className={styles.headerElement}>contract address</th>
+                  <th className={style.headerElement}>prereveal link</th>
+                  <th className={style.headerElement}>contract address</th>
 
 
-                  <th className={styles.headerElement}>Revealed</th>
-                  <th className={styles.headerElement}>attributes</th>
+                  <th className={style.headerElement}>Revealed</th>
+                  <th className={style.headerElement}>attributes</th>
 
                 </tr>
                 </thead>
@@ -90,19 +90,19 @@ function  Dashboard() {
                 <tbody>
                   {
                     data.map((item) => (
-                      <tr key={item.id} className={styles.itemElement}>
-                        <td className={styles.itemElement}>{item.name.collectionName}</td>
-                        <td className={styles.itemElement}>{item.name.Description}</td>
+                      <tr key={item.id} className={style.itemElement}>
+                        <td className={style.itemElement}>{item.name.collectionName}</td>
+                        <td className={style.itemElement}>{item.name.Description}</td>
 
-                        <td className={styles.itemElement}>{item.name.maxSupply}</td>
-                        <td className={styles.itemElement}>{item.name.mintPrice}</td>
-                        <td className={styles.itemElement}>{item.name.maxToMint}</td>
-                        <td className={styles.itemElement}>{item.name.tokenName}</td>
-                        <td className={styles.itemElement}>{item.name.tokenSymbol}</td>
+                        <td className={style.itemElement}>{item.name.maxSupply}</td>
+                        <td className={style.itemElement}>{item.name.mintPrice}</td>
+                        <td className={style.itemElement}>{item.name.maxToMint}</td>
+                        <td className={style.itemElement}>{item.name.tokenName}</td>
+                        <td className={style.itemElement}>{item.name.tokenSymbol}</td>
                         
-                        <td className={styles.itemElement}><Link href={item.name.prerevealImgUrl}> link </Link></td>
+                        <td className={style.itemElement}><Link href={item.name.prerevealImgUrl}> link </Link></td>
 
-                        <td className={styles.itemElement}>
+                        <td className={style.itemElement}>
                           {  
                             item.name.contractAddress ? (
                               <>
@@ -112,10 +112,10 @@ function  Dashboard() {
                           } 
                         </td>
 
-                        <td className={styles.itemElement}>{wrapReveal(item.name.Revealed)}</td>
+                        <td className={style.itemElement}>{wrapReveal(item.name.Revealed)}</td>
 
 
-                        <td className={styles.itemElement}>
+                        <td className={style.itemElement}>
                           {  
                             item.name.Attributes ? (
                               <>
@@ -131,7 +131,7 @@ function  Dashboard() {
               </table>
             </div>
           </>
-        ) : (<>you haven't created a collection yet. <Link href="/create/uploadimages"> Get started now </Link></>)           
+        ) : (<>you haven&apos;t created a collection yet. <Link href="/create/uploadimages"> Get started now </Link></>)           
       } 
     </>
   );

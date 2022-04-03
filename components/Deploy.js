@@ -74,7 +74,7 @@ function  Deploy() {
 
   return (
     <> 
-      <div> Deploy </div><br></br>
+      <div className={styles.createTitle}> Deploy </div><br></br>
 
       <form id="formToSubmit" method="post" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              
 

@@ -74,7 +74,7 @@ function UploadImages() {
   return (
     
     <> 
-      Upload the Collection's Metadata 
+      Upload the Collection&apos;s Metadata 
       <br></br>
       <br></br>
 

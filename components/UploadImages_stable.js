@@ -75,12 +75,12 @@ function UploadImages() {
         {errors.uploadPreRevealImage && errors.uploadPreRevealImage.type === "required" && <span><p>required</p></span> }
         <br></br>
 
-        Collection's images: 
+        Collection&apos;s images: 
         <input id="uploadMultipleImages" type="file" multiple="multiple" {...register('uploadMultipleImages', { required: true})}></input>      
         {errors.uploadMultipleImages && errors.uploadMultipleImages.type === "required" && <span><p>required</p></span> }
         <br></br>
         
-        Collection's description: 
+        Collection&apos;s description: 
         <input id="CollectionDescription" width="200" height="80" {...register('CollectionDescription', { required: true, minLength: 4, maxLength: 240})} ></input>
         {errors.CollectionDescription && errors.CollectionDescription.type === "required" && <span><p>required</p></span> }
         {errors.CollectionDescription && errors.CollectionDescription.type === "maxLength" && <span><p>Max length is 240 chars</p></span> }

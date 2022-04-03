@@ -33,10 +33,10 @@ function Hero() {
                         </div>
                         
                         <div className={style.ctaContainer}>
-                            <Link href="/UpcomingCollections">
+                            <Link href="/UpcomingCollections" passHref>
                                 <button className={style.accentedButton}>Explore</button>
                             </Link>
-                            <Link href="/create">
+                            <Link href="/create/dashboard" passHref>
                                 <button className={style.button}>Create</button>
                             </Link>
                         </div>

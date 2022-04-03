@@ -21,6 +21,7 @@ apiRoute.post(async (req, res) => {
   console.log(req.files)
 
   const collectionName = req.body.CollectionName[0].toString();
+  console.log("collection name: " + collectionName);
   const collectionDescription = req.body.CollectionDescription[0].toString();
   const userAccount = req.body.UserAccount[0].toString();
 
