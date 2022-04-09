@@ -27,22 +27,50 @@ function CreateHeader() {
                     </div>
                 </Link>
 
-                <Link href="/create/uploadimages" passHref> 
+                {/** 
+                <Link href="/create/_old_uploadimages_combo" passHref> 
                     <div className={styles.headerItem}>
                         Upload Images
                     </div>
                 </Link>
+                */}
+
+                <Link href="/create/startCollection" passHref> 
+                    <div className={styles.headerItem}>
+                        Create
+                    </div>
+                </Link>
+
+                <Link href="/create/description" passHref> 
+                    <div className={styles.headerItem}>
+                        Description
+                    </div>
+                </Link>
+
+                <Link href="/create/prerevealImage" passHref> 
+                    <div className={styles.headerItem}>
+                        Prereveal Image
+                    </div>
+                </Link>
+
+                <Link href="/create/uploadImages" passHref> 
+                    <div className={styles.headerItem}>
+                        Images  {/** Upload Images */}
+                    </div>
+                </Link>
+
+
 
                 {/* <Link href="/api/api-getCollectionNames">  */}
                 <Link href="/create/uploadmetadata" passHref> 
                     <div className={styles.headerItem}>
-                        Upload MetaData
+                        MetaData  {/** Upload MetaData */}
                     </div>
                 </Link>
 
                 <Link href="/create/configureSmartContract" passHref> 
                     <div className={styles.headerItem}>
-                        Configure smart contract
+                        Configure  {/** Configure smart contract */}
                     </div>
                 </Link>
 

@@ -1,6 +1,5 @@
 import styles from "../styles/Login.module.css";
 import Image from "next/image";
-//import icon from "../components/images/Moralis-Favicon.svg";
 import icon from "../components/images/metamask.webp"; 
 import {useMoralis} from "react-moralis";
 

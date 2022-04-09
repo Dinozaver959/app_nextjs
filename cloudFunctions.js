@@ -211,6 +211,30 @@ Moralis.Cloud.define("GetCollectionsDetailsByOwner", async (request) => {
 });
 
 
+Moralis.Cloud.define("GetCollectionDetailsByCollectionName", async (request) => {
+
+  const pipeline = [
+    { match: { collectionName: request.params.collectionName } },
+    {project: { 
+      _id: 0, 
+      collectionName : 1,
+      maxToMint: 1,
+      mintPrice: 1,
+      maxSupply: 1,
+      tokenName: 1,
+      tokenSymbol: 1,
+      Attributes: 1,
+      Description: 1,
+      Revealed: 1,
+      contractAddress: 1,
+      prerevealImgUrl: 1
+    }}
+  ];
+  
+  const query = new Moralis.Query("Collections");
+  
+  return await query.aggregate(pipeline);
+});
 
 
 

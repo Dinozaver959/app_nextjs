@@ -64,9 +64,16 @@ export async function CheckIfUserOwnsCollection(collectionName, userAccount){
     return await Moralis.Cloud.run("CheckIfUserOwnsCollection", params);
 }
 
-
+// similar to below, but it collection data from all the collections owned by an owner
 export async function GetCollectionsDetailsByOwner(userAccount){
     const params =  { userAccount : userAccount };
     return await Moralis.Cloud.run("GetCollectionsDetailsByOwner", params);
 }
+
+// similar to above but more efficient -> gets only data for 1 particular collection
+export async function GetCollectionDetailsByCollectionName(collectionName){
+    const params =  { collectionName : collectionName };
+    return await Moralis.Cloud.run("GetCollectionDetailsByCollectionName", params);
+}
+
 

@@ -44,13 +44,13 @@ foreach($line in Get-Content $settingsFile) {
 
     $old = $lineByParts[0]
     $new = $line.Substring($old.Length + 1)
-    $new = $new.Replace(" ", "_")
-
-    (Get-Content $solidityFile) -replace $old, $new | Out-File -encoding ASCII $solidityFile
-
+        
     if ($old -eq "CONTRACT_NAME"){
         $contractName = $new
+        $new = $new.Replace(" ", "_")
     }
+
+    (Get-Content $solidityFile) -replace $old, $new | Out-File -encoding ASCII $solidityFile
 
 }
 

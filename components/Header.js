@@ -6,7 +6,7 @@ import {FaDiscord, FaTwitter} from "react-icons/fa"
 import logo from "../components/images/Moralis-Favicon.svg";
 import { useMoralis } from 'react-moralis';
 
-import SwitchNetworkButton from '../components/SwitchNetworkButton_4';
+import SwitchNetworkButton from './SwitchNetworkButton';
 
 const style = {
     wrapper: `bg-[#04111d] w-screen px-[1.2rem] py-[0.8rem] flex `,
@@ -50,6 +50,9 @@ function Header() {
         <div className={style.headerItems}>
             <Link href="/UpcomingCollections" passHref>
                 <div className={style.headerItem}> Upcoming Collections </div>
+            </Link >
+            <Link href="/platformGuide" passHref>
+                <div className={style.headerItem}> Platform Guide </div>
             </Link >
             <Link href="/create/dashboard" passHref> 
                 <div className={style.headerItem}> Create </div>

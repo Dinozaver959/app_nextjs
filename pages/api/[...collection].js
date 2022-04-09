@@ -59,7 +59,7 @@ apiRoute.use('api/', async (req, res) => {
   if(await DoesCollectionExist(collectionName)){
 
     var collectionSize = await GetCollectionLength(collectionName);
-    if (0 < collectionSize && 0 <= id && id < collectionSize) {
+    if ((0 < collectionSize && 0 <= id && id < collectionSize) || id == "prereveal") {
 
       // check if collection is revealed 
       if (await IsCollectionRevealed(collectionName)) {   // yes revealed -> give 'id' specific reply

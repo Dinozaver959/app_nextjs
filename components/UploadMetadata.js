@@ -1,7 +1,7 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef } from 'react';
 import styles from "../styles/CreateContent.module.css";
-import AsyncSelect from 'react-select/async'
-import { useForm, Controller  } from "react-hook-form";
+import AsyncSelect from 'react-select/async';
+import { useForm, Controller } from "react-hook-form";
 import Moralis from 'moralis';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"; 
@@ -34,7 +34,7 @@ function UploadImages() {
   // SUBMIT - validation
   const resolver = yupResolver(validationSchema)
   const { register, handleSubmit, formState: { errors }, control } = useForm({resolver});
-  const onSubmit = data => SubmitForm();  // console.log(data);
+  const onSubmit = data => SubmitForm();
 
   function SubmitForm(){
 
@@ -49,9 +49,6 @@ function UploadImages() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/api-uploadMetadata', false);
     xhr.onload = function () {
-      // do something to response
-      // console.log(this.responseText);
-
       // update the feedback text 
       document.getElementById('submitFeedback').innerText = 'Metadata added'
 
@@ -62,7 +59,6 @@ function UploadImages() {
       // think about also removing the hover effect
       // you can create a seperate class for the hover (can be reused on other elements as well) and just remove the hover class from this element
       console.log("--------------")
-
     };
     xhr.send(formData);
   }
@@ -92,7 +88,6 @@ function UploadImages() {
 
 
   return (
-    
     <> 
       <div className={styles.createTitle}>Upload the Collection&apos;s Metadata</div><br></br>
 

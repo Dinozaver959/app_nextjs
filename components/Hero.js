@@ -27,10 +27,21 @@ function Hero() {
                         <div className={style.title}>
                             Create extraordinary NFTs with ease
                         </div>
-                    
+
+                         <div className={style.description}>
+                            No more waiting for developers<br></br>
+                            No more upfront costs<br></br>
+                            No more unpredictable bugs
+                        </div>  
+
                         <div className={style.description}>
-                            EasyLaunchNFT empowers eveyone to launch their own NFT collection with only a few clicks.
+                            EasyLaunchNFT empowers eveyone to launch their own NFT collection <br></br>
+                            with only a few clicks.      
                         </div>
+
+
+
+
                         
                         <div className={style.ctaContainer}>
                             <Link href="/UpcomingCollections" passHref>

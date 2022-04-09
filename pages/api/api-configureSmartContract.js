@@ -119,7 +119,7 @@ async function RunCompileSmartContractScript(collectionName) {
 
 
 apiRoute.post(async (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
 
     var maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName, userAccount;
 

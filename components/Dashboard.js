@@ -14,9 +14,9 @@ function  Dashboard() {
     //return fetch(`https://easylaunchnft.com/api/api-getCollectionNames-configuredNotDeployed`).then(res => res.json());   
     const data = await fetch(`https://easylaunchnft.com/api/api-getCollectionsDetails` + '?id=' + ((Moralis.User.current()).id))
       .then(res => res.json())
-      .then(json => setData(json));     
+      .then(json => setData(json));
 
-    //console.log(data);
+    console.log(data);
 
     return data;
   };
@@ -80,7 +80,6 @@ function  Dashboard() {
                   <th className={style.headerElement}>prereveal link</th>
                   <th className={style.headerElement}>contract address</th>
 
-
                   <th className={style.headerElement}>Revealed</th>
                   <th className={style.headerElement}>attributes</th>
 
@@ -93,14 +92,21 @@ function  Dashboard() {
                       <tr key={item.id} className={style.itemElement}>
                         <td className={style.itemElement}>{item.name.collectionName}</td>
                         <td className={style.itemElement}>{item.name.Description}</td>
-
                         <td className={style.itemElement}>{item.name.maxSupply}</td>
                         <td className={style.itemElement}>{item.name.mintPrice}</td>
                         <td className={style.itemElement}>{item.name.maxToMint}</td>
                         <td className={style.itemElement}>{item.name.tokenName}</td>
                         <td className={style.itemElement}>{item.name.tokenSymbol}</td>
                         
-                        <td className={style.itemElement}><Link href={item.name.prerevealImgUrl}> link </Link></td>
+                        <td className={style.itemElement}>
+                          {  
+                            item.name.prerevealImgUrl ? (
+                              <>
+                                <Link href={item.name.prerevealImgUrl}> link </Link>
+                              </>
+                            ) : ("")           
+                          } 
+                        </td>
 
                         <td className={style.itemElement}>
                           {  

@@ -5,7 +5,7 @@ import CreateHeader from "../../components/CreateHeader";
 import CreateContainer from "../../components/CreateContainer";
 import UploadMetadata_ from "../../components/UploadMetadata";
 
-export default function uploadmetadata() {
+export default function Uploadmetadata() {
   const {isAuthenticated, logout} = useMoralis();
   return (
 

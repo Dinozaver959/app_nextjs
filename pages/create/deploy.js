@@ -5,7 +5,7 @@ import CreateHeader from "../../components/CreateHeader";
 import CreateContainer from "../../components/CreateContainer";
 import Deploy_ from "../../components/Deploy";
 
-export default function deploy() {
+export default function Deploy() {
   const {isAuthenticated, logout} = useMoralis();
   return (
 

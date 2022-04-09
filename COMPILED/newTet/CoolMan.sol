@@ -1675,7 +1675,7 @@ contract newTet is ERC721, ERC721Enumerable, Ownable {
 
     mapping(address => uint256) private _allowListClaimed;
 
-    constructor() ERC721("Riba", "yy") {}
+    constructor() ERC721("Riba", "RR") {}
 
     function mint(uint256 numTokens) external payable {
         require(
@@ -1808,13 +1808,16 @@ contract newTet is ERC721, ERC721Enumerable, Ownable {
 
     // PLATFORM ONLY
 
-    function setPlatformRoyalties(uint256 royalty) public onlyPlatform {
+    function setPlatformRoyalties(uint256 newRoyaltyNumber)
+        public
+        onlyPlatform
+    {
         require(
-            0 <= royalty, //  && royalty_ <= 1000
+            0 <= newRoyaltyNumber, //  && royalty_ <= 1000
             "Platform royalty should be non-negative, up to 1000"
         );
 
-        _platformRoyalty = royalty;
+        _platformRoyalty = newRoyaltyNumber;
     }
 
     function changePlatformAddress(address newPlatformAddress)

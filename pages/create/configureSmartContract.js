@@ -5,7 +5,7 @@ import CreateHeader from "../../components/CreateHeader";
 import CreateContainer from "../../components/CreateContainer";
 import ConfigureSmartContract_ from "../../components/ConfigureSmartContract";
 
-export default function configureSmartContract() {
+export default function ConfigureSmartContract() {
   const {isAuthenticated, logout} = useMoralis();
   return (
 

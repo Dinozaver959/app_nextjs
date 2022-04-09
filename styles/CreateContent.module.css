@@ -27,14 +27,14 @@
 .gridContainer {
   display: grid;
   /*grid-template-columns: 1fr 2fr 1fr; */
-  grid-template-columns: 160px 2fr 160px;
+  grid-template-columns: 180px 2fr 160px;
   padding: 10px;
 }
 
 /* for 2 columns */
 .gridContainer_2 {
   display: grid;
-  grid-template-columns: 160px 2fr;
+  grid-template-columns: 180px 2fr;
   padding: 10px;
 }
 
