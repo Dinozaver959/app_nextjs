@@ -21,7 +21,7 @@ function Description() {
     formData.append('UserAccount', (Moralis.User.current()).id);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/api-uploadImages_AddDescription', false);
+    xhr.open('POST', '/api/api-addDescription', false);
     xhr.onload = function () {
       // do something to response
       // console.log(this.responseText);
@@ -36,7 +36,7 @@ function Description() {
 
       // think about also removing the hover effect
       // you can create a seperate class for the hover (can be reused on other elements as well) and just remove the hover class from this element
-      console.log("--------------")
+      console.log("description added")
 
     };
     xhr.send(formData);

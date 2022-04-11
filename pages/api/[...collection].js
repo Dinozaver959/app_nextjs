@@ -1,7 +1,7 @@
 import middleware from '../../middleware/middleware'
 import nextConnect from 'next-connect'
 import LogBackend from '../../JS/backendLog'
-import {IsCollectionRevealed, DoesCollectionExist, GetCollectionLength, ConstructMetadataLegit, ConstructMetadataPreReveal} from '../../JS/DB-cloudFunctions'
+import {IsCollectionRevealed, DoesCollectionExist, GetCollectionSize, GetCollectionLength, ConstructMetadataLegit, ConstructMetadataPreReveal, GetCollectionDescription, GetImageURL, GetPrerevealImageURL} from '../../JS/DB-cloudFunctions'
 
 var Moralis = require("moralis/node");
 var fs = require("fs");
@@ -17,45 +17,19 @@ const apiRoute = nextConnect()
 apiRoute.use(middleware)
 
 
-/*
-// cloud functions
-async function IsCollectionRevealed(collectionName) {
-  const params =  { collectionName: collectionName };
-  return await Moralis.Cloud.run("IsCollectionRevealed", params);
-}
-
-async function DoesCollectionExist(collectionName){
-  const params =  { collectionName: collectionName };
-  return await Moralis.Cloud.run("DoesCollectionExist", params);
-}
-
-async function GetCollectionLength(collectionName){
-  const params =  { collectionName: collectionName };
-  return await Moralis.Cloud.run("GetCollectionLength", params);
-}
-
-async function ConstructMetadataLegit(collectionName, id){
-  const params =  { collectionName: collectionName, id : id };
-  return await Moralis.Cloud.run("ConstructMetadataLegit", params);
-}
-
-async function ConstructMetadataPreReveal(collectionName, id){
-  const params =  { collectionName: collectionName, id : id };
-  return await Moralis.Cloud.run("ConstructMetadataPreReveal", params);
-}
-*/
-
-
-
-
 apiRoute.use('api/', async (req, res) => {
   fs  // dont touch this -- nextjs complains on compiling, if fs is not used ... don't ask, don't touch
 
   const parsedURL = req.query['collection'];
   const collectionName = parsedURL[0];
   const id = parsedURL[1];
-  var returnString = "";
+  // var returnString = ""; - old
+  var returnString = new Object();
 
+
+  // --------------------------------------------------------------
+  // old approach - cloud functions prepare the metadata string
+  /**  
   if(await DoesCollectionExist(collectionName)){
 
     var collectionSize = await GetCollectionLength(collectionName);
@@ -69,14 +43,56 @@ apiRoute.use('api/', async (req, res) => {
       }
     }
   }
+  */
+
+
+  // --------------------------------------------------------------
+  // new approach - we read the metadata file and construct the string from there 
+
+  if(await DoesCollectionExist(collectionName)){
+
+    var collectionSize = await GetCollectionSize(collectionName);
+    if ((0 < collectionSize && 0 <= id && id < collectionSize) || id == "prereveal") {    // assume starting from 1
+
+      // name
+      returnString.name = collectionName + " #" + id;
+
+      // description
+      returnString.description = await GetCollectionDescription(collectionName)
+
+      // external url
+      returnString.external_url = "https://easylaunchnft.com/"
+
+      if ((await IsCollectionRevealed(collectionName)) && id != "prereveal") {   // yes revealed -> give 'id' specific reply
+
+        // image
+        returnString.image = await GetImageURL(collectionName, id)
+
+        // attributes
+        const metadataFilePath = "/var/www/app_nextjs/Metadata/" + collectionName + "/" + "metadata.json";
+        let rawdata = fs.readFileSync(metadataFilePath);
+        let jsonObj = JSON.parse(rawdata);
+        returnString.attributes = jsonObj[id]["attributes"];
+
+        // if there are some additional properties in the metadata ----> add them here 
+
+      } else{   // not revealed -> give the default prereveal reply
+
+        // image
+        returnString.image = await GetPrerevealImageURL(collectionName);
+      }
+    }
+
+  }
+
 
   res.send(returnString);
 })
 
 export const config = {
-    api: {
-      bodyParser: false
-    }
+  api: {
+    bodyParser: false
+  }
 }
   
 export default apiRoute

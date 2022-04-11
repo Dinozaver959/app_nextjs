@@ -4,7 +4,7 @@ import styles from "../styles/CreateContent.module.css";
 import AsyncSelect from 'react-select/async';
 import { useForm, Controller } from "react-hook-form";
 import Moralis from 'moralis';
-import UploadImagesBulk from './comp_UploadImagesBulk';
+import UploadImagesBulk from './UploadImagesBulkComponent';
 
 
 

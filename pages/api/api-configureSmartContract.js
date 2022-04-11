@@ -116,10 +116,7 @@ async function RunCompileSmartContractScript(collectionName) {
 }
 
 
-
-
 apiRoute.post(async (req, res) => {
-    //console.log(req.body)
 
     var maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName, userAccount;
 
@@ -133,42 +130,18 @@ apiRoute.post(async (req, res) => {
         userAccount = DOMPurify.sanitize(req.body.UserAccount[0]);
     }
 
-  
     // if user does not owns the collection - redirect to home page
     if(! await CheckIfUserOwnsCollection(collectionName, userAccount)){
         console.log("USER DOES NOT OWN THE COLLECTION!")
         LogBackend("USER DOES NOT OWN THE COLLECTION!")
-        exit;
+        res.status(501).end("nope...not gonna work");
     }
     
-
     UpdateCollectionInMoralisDB(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName);
     UpdateSettingsFile(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName);
     RunCompileSmartContractScript(collectionName);
 
-
-    // redirect to the next step
-    res.redirect("/create/deploy"); 
-
-
-    //res.redirect("/create/configureSmartContract");  
-
-
-    /* 
-    res.send("CollectionName: " + req.body.CollectionName + 
-        "\n" + "CollectionName[0]: " + req.body.CollectionName[0] + 
-        "\n" + "CollectionName[1]: " + req.body.CollectionName[1] + 
-        "\n" + "CollectionName['id']: " + req.body.CollectionName['id'] + 
-        "\n" + "CollectionName['name']: " + req.body.CollectionName['name'] + 
-        "\n" + "CollectionName.label: " + req.body.CollectionName.label + 
-        "\n" + "CollectionName.value: " + req.body.CollectionName.value + 
-        "\n" + "MAX_SUPPLY[0]: " + maxSupply + 
-        "\n" + "MINT_PRICE[0]: " + mintPrice + 
-        "\n" + "MAX_TO_MINT[0]: " + maxToMint + 
-        "\n" + "_NAME_[0]: " + tokenName + 
-        "\n" + "_SYMBOL_[0]: " + tokenSymbol  
-        );
-    */
+    res.status(201).end("configuration added and smart contract created");
 })
 
 export const config = {

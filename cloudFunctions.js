@@ -75,8 +75,16 @@ Moralis.Cloud.define("DoesCollectionExist", async (request) => {
 });
 
 
+// based on the value supplied by the user - maxSupply
+Moralis.Cloud.define("GetCollectionSize", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  const results = await query.find();
+  return results[0].get("maxSupply");
+});
 
 
+// based on the total number of rows in the collection's specific DB Table - old approach
 Moralis.Cloud.define("GetCollectionLength", async (request) => {
   const query = new Moralis.Query(request.params.collectionName);
   const results = await query.find();
@@ -114,7 +122,7 @@ Moralis.Cloud.define("ConstructMetadataLegit", async (request) => {
     const collectionName = request.params.collectionName;
     returnString.name = collectionName + " #" + id;
   
-    // get prereveal img url
+    // get img url
     const Collections = Moralis.Object.extend(collectionName);
     const query = new Moralis.Query(Collections);
     query.equalTo("id_", parseInt(id));                                                       
@@ -182,8 +190,6 @@ Moralis.Cloud.define("CheckIfUserOwnsCollection", async (request) => {
 });
 
 
-// ------------------------
-
 
 Moralis.Cloud.define("GetCollectionsDetailsByOwner", async (request) => {
 
@@ -238,3 +244,33 @@ Moralis.Cloud.define("GetCollectionDetailsByCollectionName", async (request) => 
 
 
 
+
+// ------------------------
+
+
+Moralis.Cloud.define("GetCollectionDescription", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  const results = await query.find();
+  return results[0].get("Description");
+});
+
+
+Moralis.Cloud.define("GetImageURL", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  const results = await query.find();
+
+  const baseImageURL = results[0].get("baseImageURL");
+  const imageFileType = results[0].get("imageFileType");
+
+  return (baseImageURL + request.params.id + imageFileType)
+});
+
+
+Moralis.Cloud.define("GetPrerevealImageURL", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  const results = await query.find(); 
+  return results[0].get('prerevealImgUrl');
+});

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styles from "../styles/CreateContent.module.css";
+import styles from "../../styles/CreateContent.module.css";
 import { useForm, useFormContext } from "react-hook-form";
 import Moralis from 'moralis'
 import * as yup from 'yup';

@@ -28,3 +28,41 @@ select {
   box-sizing: border-box;
   margin: 0px;
 }
+
+
+
+/*   just wrote down the color theme   */
+.main-color-dark {
+  color: #1868b7
+}
+
+.main-color-mid {
+  color: #2081e2
+  /* option 2:   #3A7EBF    */
+}
+
+.main-color-light {
+  color: #5F97CE
+}
+
+.white {
+  color: #f3fbfe
+}
+
+.black {
+  color: #121619
+}
+
+.grey-dark {
+  color: #323c3e
+}
+
+.grey-mid {
+  color: #50575F
+}
+
+.grey-light {
+  color: #6E747D
+}
+
+

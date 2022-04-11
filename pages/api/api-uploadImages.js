@@ -29,7 +29,7 @@ apiRoute.post(async (req, res) => {
   if(await DoesCollectionExist(collectionName)){
     console.log("Collection already exists!")
     LogBackend("Collection already exists!");
-    exit;
+    res.status(501).end("nope...not gonna work");
   }
 
   // adds a Collection to the set of collections
@@ -82,30 +82,7 @@ apiRoute.post(async (req, res) => {
       }
   }
 
-
-  //redirect to the next stage
-  res.redirect("/create/uploadmetadata");
-
-
-  /*
-  res.send("CollectionName: " + req.body.CollectionName + 
-      "CollectionName[0]: " + req.body.CollectionName[0] + 
-      "\n" + "files['uploadPreRevealImage'].length: " + req.files['uploadPreRevealImage'].length +
-      "\n" + "files['uploadPreRevealImage'][0].originalFilename: " + req.files['uploadPreRevealImage'][0].originalFilename +
-      "\n" + "files['uploadPreRevealImage'][0].headers: " + req.files['uploadPreRevealImage'][0].headers +
-      "\n" + "JSON.stringify(req.body): " + JSON.stringify(req.body) +
-      "\n" + "JSON.stringify(req.files['uploadPreRevealImage'][0]): " + JSON.stringify(req.files['uploadPreRevealImage'][0]) +
-      "\n" + "files['uploadPreRevealImage'][0].path: " + req.files['uploadPreRevealImage'][0].path +
-      "\n" + "files['uploadMultipleImages'][0].path: " + req.files['uploadMultipleImages'][0].path +
-      "\n" + "files['uploadMultipleImages'][1].path: " + req.files['uploadMultipleImages'][1].path +
-      "\n" + "files['uploadMultipleImages'][2].path: " + req.files['uploadMultipleImages'][2].path
-      
-  );
-  */
-
-  //res.redirect("/");      // <- works perfectly!  the screen + url is that of the homepage
-
-  //...
+  res.status(201).end("images have been uploaded successfully");
 })
 
 export const config = {

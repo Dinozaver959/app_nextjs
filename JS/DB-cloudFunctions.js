@@ -43,6 +43,11 @@ export async function DoesCollectionExist(collectionName){
     return await Moralis.Cloud.run("DoesCollectionExist", params);
 }
 
+export async function GetCollectionSize(collectionName){
+    const params =  { collectionName: collectionName };
+    return await Moralis.Cloud.run("GetCollectionSize", params);
+}
+
 export async function GetCollectionLength(collectionName){
     const params =  { collectionName: collectionName };
     return await Moralis.Cloud.run("GetCollectionLength", params);
@@ -77,3 +82,19 @@ export async function GetCollectionDetailsByCollectionName(collectionName){
 }
 
 
+
+export async function GetCollectionDescription(collectionName){
+    const params =  { collectionName: collectionName };
+    return await Moralis.Cloud.run("GetCollectionDescription", params);
+}
+
+
+export async function GetImageURL(collectionName, id){
+    const params =  { collectionName: collectionName, id: id };
+    return await Moralis.Cloud.run("GetImageURL", params);
+}
+
+export async function GetPrerevealImageURL(collectionName){
+    const params =  { collectionName: collectionName };
+    return await Moralis.Cloud.run("GetPrerevealImageURL", params);
+}

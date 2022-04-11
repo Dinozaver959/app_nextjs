@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+# intermediate folders
+/COMPILE
+/Metadata
+/BIN
+
 # testing
 /coverage
 

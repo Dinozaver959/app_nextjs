@@ -42,7 +42,7 @@ function StartCollection() {
     formData.append('UserAccount', (Moralis.User.current()).id);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/api-uploadImages_StartCollection', false);
+    xhr.open('POST', '/api/api-startCollection', false);
     xhr.onload = function () {
       // do something to response
       // console.log(this.responseText);
@@ -56,7 +56,7 @@ function StartCollection() {
 
       // think about also removing the hover effect
       // you can create a seperate class for the hover (can be reused on other elements as well) and just remove the hover class from this element
-      console.log("--------------")
+      console.log("collection started")
     };
     xhr.send(formData);
   }
@@ -74,7 +74,7 @@ function StartCollection() {
     <> 
       <div className={styles.createTitle}>Create a Collection</div><br></br>  
         
-      <form id="formToSubmit" method="post" action="/api/api-uploadImages" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              
+      <form id="formToSubmit" method="post" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              {/** action="/api/api-uploadImages" */}
 
         <div className={styles.gridContainer}> 
 
