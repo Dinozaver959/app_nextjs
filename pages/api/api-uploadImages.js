@@ -30,6 +30,7 @@ apiRoute.post(async (req, res) => {
     console.log("Collection already exists!")
     LogBackend("Collection already exists!");
     res.status(501).end("nope...not gonna work");
+    return;
   }
 
   // adds a Collection to the set of collections

@@ -1,18 +1,12 @@
-import Header from "../components/Header";
 import CreateContainer from "../components/CreateContainer";
 import ReactPlayer from 'react-player';
 import React from 'react'
-
-
-const style = {
-  text: `text-white item-align`,
-
-}
+import styles from '../styles/Video.module.scss';
 
 export default function PlatformGuide() {
   return (
-    <div>
-      <Header />
+    <>
+      <br></br>
 
       <CreateContainer>
 
@@ -23,12 +17,14 @@ export default function PlatformGuide() {
           </video>
         */}
 
-        <div>
-          <h2 className={style.text}> Detailed demo on how to launch your nft collection </h2>
-          <ReactPlayer controls url={"/videos/platformGuide.mp4"} />
+        <div className={styles.video_wrapper}>
+          <h2 > Detailed demo on how to launch your nft collection </h2>
+          {/*  <ReactPlayer width='100%' height='100%'controls url={"/videos/platformGuide.mp4"} /> */}
+
+          <ReactPlayer width='100%' height='100%'controls url={"https://www.youtube.com/watch?v=goWYhPd0leo&ab_channel=DavidGrilec"} />
         </div>
 
       </CreateContainer>
-    </div>
+    </>
   )
 }

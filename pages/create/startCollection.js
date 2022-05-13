@@ -1,31 +1,18 @@
-import Login from "../../components/Login";
-import { useMoralis } from "react-moralis";
-import Header from "../../components/Header";
+import Authenticate from '../../components/Authenticate';
 import CreateHeader from "../../components/CreateHeader";
 import CreateContainer from "../../components/CreateContainer";
 import StartCollection_ from "../../components/StartCollection";
 
 export default function Uploadimages() {
-  const {isAuthenticated, logout} = useMoralis();
   return (
-
     <>
-        
-      <Header />
-      {
-        isAuthenticated ? (
-            <>
-                <CreateHeader />
+      <Authenticate>
+        <CreateHeader />
 
-                <CreateContainer> 
-                  <StartCollection_ />
-                </CreateContainer>
-
-            </>
-        ) : (
-          <Login />
-        )
-      }
+        <CreateContainer> 
+          <StartCollection_ />
+        </CreateContainer>
+      </Authenticate>
     </>
   )
 }

@@ -1,0 +1,152 @@
+
+.submitButtonOuter {
+  margin-top: 15px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  font-size: 14px;
+  /*background-color: rgb(32, 34, 37);
+  color: rgb(138, 147, 155);*/
+  border-radius: 40px;
+  padding: 2px 10px;
+  margin: 0 auto;
+  max-width: 180px;
+  width: 100px;
+}
+
+.submitButton_noHover {
+  font-size: 14px;
+  /*background-color: rgb(32, 34, 37);
+  color: rgb(138, 147, 155);*/
+  border-radius: 40px;
+  padding: 2px 10px;
+  margin: 0 auto;
+  max-width: 180px;
+  width: 100px;
+  opacity: 0.3;
+}
+
+.postDeploymentLink {
+  font-size: 14px;
+  border-radius: 40px;
+  padding: 2px 10px;
+  position:center;
+  margin: 5px;
+  width: 120px;
+}
+
+.interactButton {
+  font-size: 14px;
+  /*background-color: rgb(32, 34, 37);
+  color: rgb(138, 147, 155);*/
+  border-radius: 40px;
+  padding: 5px 10px;
+  margin: 2px 5px;
+  max-width: 180px;
+  width: 180px;
+  max-height: 35px;
+}
+
+.interactButtonMint {
+  font-size: 14px;
+  border-radius: 40px;
+  padding: 5px 10px;
+  margin: 2px 5px;
+  max-width: 110px;
+  width: 110px;
+  max-height: 35px;
+}
+
+.downloadSample {
+  font-size: 12px;
+  border-radius: 40px;
+  padding: 3px 3px;
+  margin: 7px;
+  max-width: 120px;
+  width: 120px;
+  max-height: 35px;
+}
+
+.submitButton:hover, .postDeploymentLink:hover, .interactButton:hover, .interactButtonMint:hover, .downloadSample:hover {
+  /*color: rgb(230, 232, 235);*/
+  cursor: pointer;
+}
+
+.postDeploymentDiv {
+  max-width: 300px;
+  font-size: 12px;
+}
+
+
+/* for 3 columns */
+@media only screen and (max-width: 720px) {
+  .gridContainer {
+    display: grid;
+    /*grid-template-columns: 1fr 2fr 1fr; */
+    grid-template-columns: 240px;
+    padding: 10px;
+  }
+}
+@media only screen and (min-width: 720px) {
+  .gridContainer {
+    display: grid;
+    /*grid-template-columns: 1fr 2fr 1fr; */
+    grid-template-columns: 180px 240px 180px;   /* 180px 2fr 160px; */
+    padding: 10px;
+  }
+}
+
+/* for 2 columns */
+@media only screen and (max-width: 480px) {
+  .gridContainer_2 {
+    display: grid;
+    grid-template-columns: 240px;
+    padding: 5px;
+  }
+}
+@media only screen and (min-width: 480px) {
+  .gridContainer_2 {
+    display: grid;
+    grid-template-columns: 200px 200px;     /* 180px 2fr */
+    padding: 5px;
+  }
+}
+
+.gridContainer_1 {
+  display: grid;
+  /*grid-template-columns: 1fr 2fr 1fr; */
+  grid-template-columns: 240px;
+  padding: 10px;
+}
+
+.gridItem, .gridItemMint, .inlineField {
+  font-size: 14px;
+  margin: 3px;
+  border-radius: 5px; /* will affect only the relevant elements, like the input text */
+
+  /* not sure why we have this
+  padding-left: 5px;*/
+}
+
+.gridItemMint {
+  max-width: 50px;
+  height: 28px;
+}
+
+.inlineField {    
+  max-width: 100px;   // need to see how it looks at the end with all different fields
+  float: right;
+}
+
+.createTitle {
+  /*color: white;*/
+  font-size: 18px;
+}
+
+// for error messages
+.gridItem > span, .gridItem > span > p  {
+  color: red;
+}

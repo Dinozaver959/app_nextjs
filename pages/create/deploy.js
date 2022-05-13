@@ -1,33 +1,18 @@
-import Login from "../../components/Login";
-import { useMoralis } from "react-moralis";
-import Header from "../../components/Header";
+import Authenticate from '../../components/Authenticate';
 import CreateHeader from "../../components/CreateHeader";
 import CreateContainer from "../../components/CreateContainer";
 import Deploy_ from "../../components/Deploy";
 
 export default function Deploy() {
-  const {isAuthenticated, logout} = useMoralis();
   return (
-
     <>
-        
-      <Header />
-      {
-        isAuthenticated ? (
-            <>
-                <CreateHeader />
+      <Authenticate>
+        <CreateHeader />
 
-                <CreateContainer> 
-                  <Deploy_ />
-                </CreateContainer>
-
-
-
-            </>
-        ) : (
-          <Login />
-        )
-      }
+        <CreateContainer> 
+          <Deploy_ />
+        </CreateContainer>
+      </Authenticate>
     </>
   )
 }

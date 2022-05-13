@@ -63,6 +63,10 @@ export async function ConstructMetadataPreReveal(collectionName, id){
     return await Moralis.Cloud.run("ConstructMetadataPreReveal", params);
 }
   
+export async function CheckIfCollectionDeployed(collectionName){
+    const params =  { collectionName: collectionName };
+    return await Moralis.Cloud.run("CheckIfCollectionDeployed", params);
+}
 
 export async function CheckIfUserOwnsCollection(collectionName, userAccount){
     const params =  { collectionName: collectionName, userAccount : userAccount };
@@ -97,4 +101,9 @@ export async function GetImageURL(collectionName, id){
 export async function GetPrerevealImageURL(collectionName){
     const params =  { collectionName: collectionName };
     return await Moralis.Cloud.run("GetPrerevealImageURL", params);
+}
+
+export async function GetPaymentOption(collectionName){
+    const params =  { collectionName: collectionName };
+    return await Moralis.Cloud.run("GetCollectionPaymentOption", params);
 }

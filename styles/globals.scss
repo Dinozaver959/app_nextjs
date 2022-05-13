@@ -1,0 +1,341 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./ColorTemplate.module";
+
+
+
+/* declaring the css variables colors */
+:root {
+
+  --color-background: #121619;
+  --color-text: #f3fbfe;
+  --color-header-icon-hover: #50575F;
+  --color-header-item-hover: #323c3e;
+
+  --color-create-header: #2081e2; // #07B4FF - not bad azure, 
+  --color-create-header-item: #f3fbfe;
+  --color-create-header-item-hover-bg: #5F97CE;
+
+  --color-textField-text:  #f3fbfe;
+  --color-textField-background: #343a3f;    /* for bracketing-stronger color, less difference from black  #21262a    also slightly lighter grey:   #4F575D */
+
+  --color-loginButton-bg: #1868b7;
+  --color-loginButton-bg-hover: #095095;
+}
+
+
+/*  Fake light - to force always dark - toggle is also disabled */
+[data-theme='light'] {
+  --color-background: #121619;
+  --color-text: #f3fbfe;
+  --color-header-icon-hover: #50575F;
+  --color-header-item-hover: #323c3e;
+  --color-create-header: #2081e2;
+  --color-create-header-item: #f3fbfe;
+  --color-create-header-item-hover-bg: #5F97CE;
+  --color-textField-text:  #f3fbfe;
+  --color-textField-background: #343a3f;
+  --color-loginButton-bg: #1868b7;
+  --color-loginButton-bg-hover: #095095;
+}
+
+/*
+[data-theme='light'] {
+
+  --color-background: #ffffff;
+  --color-text: #121619;
+  --color-header-icon-hover: #50575F;
+  --color-header-item-hover: #f4f5f7;/* slightly grey //
+
+  --color-create-header: #2081e2;
+  --color-create-header-item: #121619;
+  --color-create-header-item-hover-bg: #5F97CE;
+
+  --color-textField-text:  #121619;
+  --color-textField-background: #dde1e6; /* for bracketing-lighter color, less difference from white  #f4f5fa;  /* #5F97CE;  //
+
+  --color-loginButton-bg: #1868b7;
+  --color-loginButton-bg-hover: #2081e2;
+}
+*/
+
+
+nav{
+  /* position: fixed; 
+  top: 0px;*/
+  height: 80px;
+}
+
+/* container */
+main {
+  min-height: calc(100vh - 275px);
+  //position: relative;
+  /* margin-top: 80px;*/
+
+  //background-image: url("../public/background.png");
+  //background-image: url("../public/background2.png");
+  //background-image: url("../public/background3.png");
+  //background-image: url("../public/background3_reduced.png");
+  //background-image: url("../public/background4.png");
+  //background-image: url("../public/background4_reduced.png");
+
+  //background-image: url("../public/background5.png");
+  //background-image: url("../public/background5_reduced.png");
+
+
+  // trying .mp4 because it is 10smaller in size
+
+
+
+  //background-position: center;      // image is always centered regardless of display size (will get repeated if image is too small for display)
+  //width: 100%;
+}
+
+/* footer */
+footer {
+  background-color: var(--color-background);  // force the footer to cover the background video at the bottom
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  /*height: 200px; */
+}
+
+
+
+
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);    /* var(--color-primary); */
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+
+/*  create-header, structure:      body > div > div > nav  */
+body > div > main > div > nav {
+  background-color: var(--color-create-header);
+  color: var(--color-create-header-item);
+}
+
+body > div > main > div > nav > div:hover {
+  background-color: var(--color-create-header-item-hover-bg);
+  /* opacity: 0.5; */
+}
+
+
+
+/*  header, structure:      body > div > nav  */
+body > div > nav {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+
+
+/* input fields under /create pages */
+main input[type="text"], input[type="number"], textarea {
+  background-color: var(--color-textField-background);
+  color: var(--color-textField-text); 
+  padding: 0px 4px;
+}
+main input[type="text"]::placeholder, input[type="number"]::placeholder, textarea::placeholder{
+  color: var(--color-text)
+}
+
+
+/* SUBMIT button */
+input[type="submit"] { //}, main div > div > div > button[type="button"] {    // , main button[type="button"]
+  background-color: var(--color-loginButton-bg);
+  /*color: #f3fbfe;*/
+}
+input[type="submit"]:hover { //}, main div > div > div > button[type="button"]:hover {  // , main button[type="button"]:hover
+  background-color: var(--color-loginButton-bg-hover);
+  /*color: #f3fbfe;*/
+}
+
+// for error messages
+//div > span, div > span > p  {
+//  color: red;
+//}
+
+
+
+@media only screen and (min-width: 600px) {
+
+  /* text-based top nav items */
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(1),
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(2),
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(3),
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(4),
+  /* extra icons */
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(5),
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(6)//,
+  //body > div > nav > div:nth-child(2) > div:hover:nth-child(7)  // this was used for the themed button
+  {
+    background-color: var(--color-header-item-hover);/*  */
+    /* opacity: 0.5; */ 
+  }
+
+  /* slightly round borders for the top-nav icons */
+  body > div > nav > div > div:nth-child(5),
+  body > div > nav > div > div:nth-child(6),
+  body > div > nav > div > div:nth-child(7)     // same as above
+  {
+    border-radius: 4px;
+  }
+
+  /* Login/Logout button */
+  nav > div:last-child > div:last-child {
+    background-color: var(--color-loginButton-bg);
+    border-radius: 40px;
+  }
+
+  /* Login/Logout button */
+  nav > div:last-child > div:last-child:hover {
+    background-color: var(--color-loginButton-bg-hover);
+  }
+}
+
+@media only screen and (max-width: 599px) {
+
+  /* extra icons */
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(1),
+  body > div > nav > div:nth-child(2) > div:hover:nth-child(2)//,
+  //body > div > nav > div:nth-child(2) > div:hover:nth-child(3)    // this was used for the themed button
+  {
+    background-color: var(--color-header-item-hover);/*  */
+    /* opacity: 0.5; */ 
+  }
+
+
+  /* slightly round borders for the top-nav icons */
+  body > div > nav > div > div:nth-child(1),
+  body > div > nav > div > div:nth-child(2),
+  body > div > nav > div > div:nth-child(3)
+  {
+    border-radius: 4px;
+  }
+
+  /* Login/Logout button */
+  nav > div:last-child > div:nth-child(4) {             // change to 5 if adding the theme button
+    background-color: var(--color-loginButton-bg);
+    border-radius: 40px;
+  }
+  
+  /* Login/Logout button */
+  nav > div:last-child > div:nth-child(4):hover {       // change to 5 if adding the theme button
+    background-color: var(--color-loginButton-bg-hover);
+  }
+
+  /* Menu button 
+  nav > div:last-child > div:last-child {
+    background-color: #6E747D;
+    border-radius: 40px;
+  }*/
+  
+  /* Menu button 
+  nav > div:last-child > div:last-child:hover {
+    background-color: #50575F;
+  }*/
+}
+
+
+/* ---------------------------------------------  OLD STRUCTURE  --------------------------------------------- */
+/* OLD STRUCTURE - Login/Logout button 
+button[type="button"] > div {
+ background-color: #1868b7;
+ border-radius: 40px;
+}*/
+
+/* OLD STRUCTURE - Login/Logout button 
+button[type="button"] > div:hover {
+  background-color: #095095;
+}*/
+
+
+/* ---------------------------------------------  initial  --------------------------------------------- */
+
+
+select {
+  color: rgb(32, 34, 37);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+
+.main-color-super-dark {
+  color: #095095;
+}
+
+.main-color-dark {
+  color: #1868b7  
+  /*
+    in the dropdownmenu, file:  SwitchNetworkButton, for tailwind this is 'bg-blue-500'
+  */
+}
+
+.main-color-mid {
+  color: #2081e2
+  /* option 2:   #3A7EBF    */
+}
+
+.main-color-light {
+  color: #5F97CE
+}
+
+.white {
+  color: #f3fbfe
+}
+
+.black {
+  color: #121619
+}
+
+.grey-dark {
+  color: #323c3e
+}
+
+.grey-mid {
+  color: #50575F
+}
+
+.grey-light {
+  color: #6E747D
+}
+
+
+/***/
+
+
+/*
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: rgb(32, 34, 37);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+*/
+
+
+
+
+
+/*   just wrote down the color theme   */
+
+

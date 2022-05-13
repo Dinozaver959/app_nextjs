@@ -1,0 +1,12 @@
+
+:export {
+
+  colorTextFieldBackground: pink;
+}
+
+
+/* 
+    + can load this in JS and SCSS
+
+    - the problem that remains is, how to make the theme switch working in JS (to read the window variable we need to render the component at the client only)
+*/

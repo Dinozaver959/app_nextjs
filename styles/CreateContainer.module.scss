@@ -1,0 +1,95 @@
+
+.topSpacer{
+  height: 81px;
+}
+
+.Container {
+  display: inline-block;
+  /* background-color: rgb(138, 147, 155); */
+
+
+  padding: 5px;
+  //margin: 0 40px;
+  // border-radius: 40px;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+
+  //margin: 0 30%;
+  //background-color: rgb(138, 147, 155);
+  //border-radius: 4px;
+}
+
+.ContainerInner {
+  display: inline-block;
+  /* background-color: rgb(138, 147, 155); */
+
+  padding: 5px;
+  //margin: 0 40px;
+  // border-radius: 40px;
+
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+
+  //margin: 0 30%;
+  background-color: #323c3e;
+  width: max-content;
+}
+
+.ContainerLeft, .ContainerRight {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.Container > form {
+  /*color: rgb(32, 34, 37);*/
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.FormLikeStyle_TEMP {
+  /*color: rgb(32, 34, 37);*/
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* 
+
+.Container > *      - direct children
+.Container *        - all descendants
+
+*/
+
+
+
+
+.background_video {
+  width: 100vw;
+  height: 100vh; // calc(100vh - 275px);  // 100vh initially
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;  // 80px - same as nav
+  bottom: 0;
+  z-index: -1;
+}
+
+
+.contentWrapper{
+  margin-top: 100px;
+  display: flex;
+  //h-screen 
+  position: relative;
+  justify-content: center; //justify-center 
+  flex-wrap: wrap; //flex-wrap 
+  align-items: center; //items-center
+}
+
+

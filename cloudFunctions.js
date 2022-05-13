@@ -28,7 +28,6 @@ Moralis.Cloud.define("GetNotDeployedButReadyCollectionNames", async (request) =>
   query.doesNotExist("contractAddress"); // to be tested
   query.exists("maxSupply");
   query.exists("mintPrice");
-  query.exists("maxToMint");
   query.exists("tokenName");
   query.exists("tokenSymbol");
   const results = await query.find();
@@ -198,16 +197,33 @@ Moralis.Cloud.define("GetCollectionsDetailsByOwner", async (request) => {
     {project: { 
       _id: 0, 
       collectionName : 1,
-      maxToMint: 1,
-      mintPrice: 1,
-      maxSupply: 1,
       tokenName: 1,
       tokenSymbol: 1,
-      Attributes: 1,
+      mintPrice: 1,
+      maxSupply: 1,
+      maxToMint: 1,
+      devAllocation: 1,
+
+      ALLOWLIST: 1,
+      maxSupplyAllowList: 1,
+      maxToMintAllowList: 1,
+      mintPriceAllowList: 1,
+
+      DUTCHAUCTION: 1,
+      maxSupplyDutchAuction: 1,
+      maxToMintDutchAuction: 1,
+      mintPriceStartDutchAuction: 1,
+      mintPriceEndDutchAuction: 1,
+      priceIntervalDutchAuction: 1,
+      durationDutchAuction: 1,     
+      
       Description: 1,
-      Revealed: 1,
+      prerevealImgUrl: 1,
       contractAddress: 1,
-      prerevealImgUrl: 1
+      chainId: 1,
+      Revealed: 1,
+      
+      paymentOption: 1
     }}
   ];
   
@@ -224,12 +240,11 @@ Moralis.Cloud.define("GetCollectionDetailsByCollectionName", async (request) => 
     {project: { 
       _id: 0, 
       collectionName : 1,
-      maxToMint: 1,
       mintPrice: 1,
       maxSupply: 1,
       tokenName: 1,
       tokenSymbol: 1,
-      Attributes: 1,
+      chainId: 1,
       Description: 1,
       Revealed: 1,
       contractAddress: 1,
@@ -273,4 +288,26 @@ Moralis.Cloud.define("GetPrerevealImageURL", async (request) => {
   query.equalTo("collectionName", request.params.collectionName);
   const results = await query.find(); 
   return results[0].get('prerevealImgUrl');
+});
+
+Moralis.Cloud.define("GetCollectionPaymentOption", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  const results = await query.find();
+  return results[0].get("paymentOption");
+});
+
+
+
+
+Moralis.Cloud.define("CheckIfCollectionDeployed", async (request) => {
+  const query = new Moralis.Query("Collections");
+  query.equalTo("collectionName", request.params.collectionName);
+  query.exists("contractAddress");  // works fine 
+  const results = await query.find();
+  
+  if(results.length > 0){
+    return true;
+  }
+  return false;
 });

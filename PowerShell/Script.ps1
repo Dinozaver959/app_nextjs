@@ -20,9 +20,9 @@ cd $ScriptLocation
 
 # ADJUSTABLE VARIABLES
 $settingsFile = Join-Path '.' 'Settings.txt'
-$solidityFile = 'CoolMan.sol'                         # '.\TEST_Mumbai_exp.sol'
+$solidityFile = 'Main.sol'                             # '.\TEST_Mumbai_exp.sol'
 # $templateDir = Join-Path '.' 'TEMPLATE_CM'           # '.\TEMPLATE'
-$solcOuput = 'solcOuput'      # solc output temp dir
+$solcOutput = 'solcOutput'      # solc output temp dir
 $collectionName = $args[0]
 $templateDir = Join-Path '.' $collectionName  # new Template dir
 
@@ -59,12 +59,12 @@ foreach($line in Get-Content $settingsFile) {
 # NEW WAY - with solc compiling
 ##################################################################################################################################
 # COMPILE
-solc --bin --abi -o $solcOuput $solidityFile
+solc --bin --abi -o $solcOutput $solidityFile
 
 # move contractName.abi + contractName.txt + contract.sol out of temp dir
-move $solidityFile (Join-Path '..' $solidityFile)  -force
-move (Join-Path $solcOuput ($contractName + '.bin')) (Join-Path ".." "bytecode.txt") -force 
-move (Join-Path $solcOuput ($contractName + '.abi')) (Join-Path ".." "abi.txt") -force 
+move (Join-Path "." $solidityFile) (Join-Path '..' $solidityFile)  -force
+move (Join-Path $solcOutput ($contractName + '.bin')) (Join-Path ".." "bytecode.txt") -force 
+move (Join-Path $solcOutput ($contractName + '.abi')) (Join-Path ".." "abi.txt") -force 
 
 # RETURN TO INITIAL PLACE + CLEAN UP TEMP FILES
 cd ../
@@ -83,7 +83,7 @@ if (Test-Path -Path $outputDir) {
 
 move (Join-Path "." "bytecode.txt") (Join-Path '..' 'COMPILED' $collectionName 'bytecode.txt') -force
 move (Join-Path "." "abi.txt") (Join-Path '..' 'COMPILED' $collectionName 'abi.txt') -force
-move $solidityFile (Join-Path '..' 'COMPILED' $collectionName $solidityFile) -force
+move (Join-Path "." $solidityFile) (Join-Path '..' 'COMPILED' $collectionName $solidityFile) -force
 
 # return to initial location
 cd $InitialLocation

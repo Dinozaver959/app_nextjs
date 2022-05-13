@@ -29,14 +29,42 @@ export function LogBackend(text) {
 export function ParsePathGiveID(_url){
 
     const params = _url.split("?");
-    if(params.length != 2){
+    if(params.length < 2){
         return -1;
     }
 
     const id = params[1].split("=");
-    if(id.length != 2){
+    if(id.length < 2){
         return -1;
     }
 
-    return id[1];
+    //return id[1];
+    return id[1].split("&")[0];
+}
+
+export function ParsePathGiveCollectionName(_url){
+
+    const params = _url.split("&");
+    if(params.length < 2){
+        return -1;
+    }
+
+    const collectionName = params[1].split("=");
+    if(collectionName.length != 2){
+        return -1;
+    }
+
+    return collectionName[1];
+}
+
+export async function CheckFileExists(file) {
+    return fs.promises
+        .access(file, fs.constants.F_OK)
+        .then(() => true)
+        .catch(() => false)
+}
+
+
+export function CheckUploadedFileExtension(path, expectedEtx){
+    return (path.split(".").pop() == expectedEtx);
 }

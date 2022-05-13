@@ -1,7 +1,7 @@
 import middleware from '../../middleware/middleware'
 import nextConnect from 'next-connect'
 import {LogBackend} from '../../JS/backendLog'
-import {CheckIfUserOwnsCollection, GetCollectionDetailsByCollectionName} from '../../JS/DB-cloudFunctions'
+import {CheckIfUserOwnsCollection, GetCollectionDetailsByCollectionName, CheckIfCollectionDeployed} from '../../JS/DB-cloudFunctions'
 
 const apiRoute = nextConnect()
 apiRoute.use(middleware)
@@ -49,6 +49,14 @@ apiRoute.get(async (req, res) => {
         LogBackend("USER DOES NOT OWN THE COLLECTION!")
         // exit;
         res.status(501).end("nope...not gonna work");
+    }
+
+    // check if the collection hasn't been deployed yet
+    if(CheckIfCollectionDeployed(collectionName)){
+        console.log("collectionName has already been deployed: " + collectionName)
+        LogBackend("collectionName has already been deployed: " + collectionName)
+        res.status(502).end("nope...collectionName has already been deployed");
+        return;
     }
 
     const configValues = await GetCollectionDetailsByCollectionName(collectionName);

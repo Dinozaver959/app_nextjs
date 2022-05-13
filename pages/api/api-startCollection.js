@@ -22,6 +22,7 @@ apiRoute.post(async (req, res) => {
   const collectionName = req.body.CollectionName[0].toString();
   console.log("collection name: " + collectionName);
   const userAccount = req.body.UserAccount[0].toString();
+  const OwnerWallet = req.body.OwnerWallet[0].toString();
 
   // check if collection already exists -> drop the request
   if(await DoesCollectionExist(collectionName)){
@@ -31,7 +32,7 @@ apiRoute.post(async (req, res) => {
   }
 
   // adds a Collection to the set of collections
-  await AddCollectionToMoralisDB(collectionName, userAccount); 
+  await AddCollectionToMoralisDB(collectionName, userAccount, OwnerWallet); 
 
   res.status(201).end("Collection created");
 })
@@ -45,13 +46,14 @@ export const config = {
 export default apiRoute
 
 
-async function AddCollectionToMoralisDB(collectionName, userAccount) {
+async function AddCollectionToMoralisDB(collectionName, userAccount, OwnerWallet) {
   
   const Collections = Moralis.Object.extend("Collections");
   const collection = new Collections();
   collection.set("collectionName", collectionName);
   collection.set("Revealed", false);
   collection.set("owner", userAccount);
+  collection.set("OwnerWallet", OwnerWallet);
 
   await collection.save()
       .then((collection) => {

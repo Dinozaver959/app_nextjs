@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
-import styles from "../styles/CreateContent.module.css";
+import styles from "../styles/CreateContent.module.scss";
 import { useForm, useFormContext } from "react-hook-form";
 import Moralis from 'moralis'
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"; 
+import {GetWallet_NonMoralis} from "../JS/local_web3_Moralis";
+
+import HelpButton from './help-button';
 
 const validationSchema = yup.object().shape({
 
@@ -41,6 +44,9 @@ function StartCollection() {
     var formData = new FormData(form);
     formData.append('UserAccount', (Moralis.User.current()).id);
 
+    const connectedAddress = await GetWallet_NonMoralis();
+    formData.append('OwnerWallet', connectedAddress);
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/api-startCollection', false);
     xhr.onload = function () {
@@ -56,7 +62,12 @@ function StartCollection() {
 
       // think about also removing the hover effect
       // you can create a seperate class for the hover (can be reused on other elements as well) and just remove the hover class from this element
-      console.log("collection started")
+      console.log("collection created")
+
+      // move to the next tab
+      //window.location.replace("./description");
+      document.getElementById('descriptionLink').click();
+
     };
     xhr.send(formData);
   }
@@ -72,14 +83,20 @@ function StartCollection() {
 
   return (
     <> 
-      <div className={styles.createTitle}>Create a Collection</div><br></br>  
+      <div className={styles.createTitle}>Create a Collection</div>
+
+      <br></br>  
         
       <form id="formToSubmit" method="post" encType="multipart/form-data"  onSubmit={handleSubmit(onSubmit)}>              {/** action="/api/api-uploadImages" */}
 
-        <div className={styles.gridContainer}> 
+        <div className={styles.gridContainer_1}> 
 
-          <div className={styles.gridItem}> local name for collection:  </div>
-          <input className={styles.gridItem} id="CollectionName" {...register('CollectionName', { required: true, minLength: 4, maxLength: 24, pattern: /^[a-z][a-z0-9_-]*/i })} ></input>
+          <div className={styles.gridItem}> 
+            Local Name for Collection:  
+            <HelpButton title="Unique collection name for internal Database. You will be able to specify the actual collection name later." size="18" placement="right" color="white"/>
+          </div>
+
+          <input className={styles.gridItem} id="CollectionName" type="text" {...register('CollectionName', { required: true, minLength: 4, maxLength: 24, pattern: /^[a-z][a-z0-9_-]*/i })} ></input>
           <div className={styles.gridItem}> 
           {/*
           {errors.CollectionName && errors.CollectionName.type === "required" && <span><p>required</p></span> }
@@ -91,9 +108,13 @@ function StartCollection() {
           </div>
   
 
-          <input id="SubmitButton" className={styles.submitButton} type="submit" value="Submit" ref={refButton} ></input>
- 
+          
         </div>
+        
+        <div className={styles.submitButtonOuter}> 
+          <input id="SubmitButton" className={styles.submitButton} type="submit" value="Submit" ref={refButton} ></input>
+        </div>
+
       </form>
 
       <p id="submitFeedback" hidden></p>

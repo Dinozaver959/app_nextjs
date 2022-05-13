@@ -1,7 +1,7 @@
 import middleware from '../../middleware/middleware'
 import nextConnect from 'next-connect'
-import {LogBackend} from '../../JS/backendLog'
-import {CheckIfUserOwnsCollection} from '../../JS/DB-cloudFunctions'
+import {LogBackend, CheckUploadedFileExtension} from '../../JS/backendLog'
+import {CheckIfUserOwnsCollection, CheckIfCollectionDeployed} from '../../JS/DB-cloudFunctions'
 import { exit } from 'process';
 
 var Moralis = require("moralis/node");
@@ -31,8 +31,25 @@ apiRoute.post(async (req, res) => {
         console.log("USER DOES NOT OWN THE COLLECTION!")
         LogBackend("USER DOES NOT OWN THE COLLECTION!")
         res.status(501).end("nope...not gonna work");
+        return;
     }
 
+    // check if the file has correct extension
+    if(!CheckUploadedFileExtension(path, "json")){
+        console.log("Invalid file extension!")
+        LogBackend("Invalid file extension!")
+        res.status(502).end("nope...not gonna work");
+        return;
+    }
+
+    // check if the collection hasn't been deployed yet
+    if(CheckIfCollectionDeployed(collectionName)){
+        console.log("collectionName has already been deployed: " + collectionName)
+        LogBackend("collectionName has already been deployed: " + collectionName)
+        res.status(502).end("nope...collectionName has already been deployed");
+        return;
+    }
+    
 
     // -------------------------------------
     // new approach - just save the metadata.json file
@@ -41,7 +58,7 @@ apiRoute.post(async (req, res) => {
     const newPath =  collectionName + "/" + "metadata.json";
     const newPathLocal = "/var/www/app_nextjs/Metadata/" + newPath;
 
-    fse.move(path, newPathLocal, function (err) {
+    fse.move(path, newPathLocal, { overwrite: true }, function (err) {
         if (err) return console.error(err)
         console.log("success! Metadata file saved")
     })
@@ -55,7 +72,7 @@ apiRoute.post(async (req, res) => {
 
     // ------------------------------------
     // OLD approach of reading medata and saving info to DB
-
+    /*
 
     let rawdata = fs.readFileSync(path);
     let jsonObj = JSON.parse(rawdata);
@@ -156,6 +173,8 @@ apiRoute.post(async (req, res) => {
     // figure out how to send data back to the front end and show a pop up, 
     // or even better, not change the screen while sending instructions to the backend
 
+    */
+
 })
 
 export const config = {
@@ -189,6 +208,7 @@ async function SaveMetadataFilePathtoDB(collectionName, metadataFilePath) {
         });
     }
 }
+
   
 export default apiRoute
 

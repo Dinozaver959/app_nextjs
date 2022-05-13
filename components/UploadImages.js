@@ -1,11 +1,12 @@
 import React, {  useRef } from 'react';   // useState
 import useState from 'react-usestateref';
-import styles from "../styles/CreateContent.module.css";
+import styles from "../styles/CreateContent.module.scss";
 import AsyncSelect from 'react-select/async';
 import { useForm, Controller } from "react-hook-form";
 import Moralis from 'moralis';
 import UploadImagesBulk from './UploadImagesBulkComponent';
-
+import {AsyncSelectCustomStyles} from './AsyncSelectStyle'
+import HelpButton from './help-button';
 
 
 function UploadImages() {
@@ -51,36 +52,57 @@ function UploadImages() {
     <> 
       <div className={styles.createTitle}>Upload Images for your Collection</div><br></br>
 
-        <Controller
-          name="collectionNameController"
-          control={control}
-          rules={{ required: true }}
+      <div className={styles.gridContainer_1}> 
+        <div className={styles.gridItem}> Select Collection:  </div> 
+        <div className={styles.gridItem}>
+          <Controller
+            name="collectionNameController"
+            control={control}
+            rules={{ required: true }}
 
-          value={selectedValue}
-          render={({ field }) => (
-            <AsyncSelect
-              {...field}
-              id="CollectionName"
-              name='CollectionName'
-              isClearable
-              defaultOptions
-              getOptionLabel={e => e.name}
-              getOptionValue={e => e.name}
-              loadOptions={loadOptions}
-              onInputChange={handleInputChange}
+            value={selectedValue}
+            render={({ field }) => (
+              <AsyncSelect
+                {...field}
+                styles={AsyncSelectCustomStyles}
+                id="CollectionName"
+                name='CollectionName'
+                isClearable
+                defaultOptions
+                getOptionLabel={e => e.name}
+                getOptionValue={e => e.name}
+                loadOptions={loadOptions}
+                onInputChange={handleInputChange}
 
-              onChange={EnableFileUpload}
+                onChange={EnableFileUpload}
 
-              ref={myContainer}
-            />
-          )}
-        />
-        {errors.collectionNameController && errors.collectionNameController.type === "required" && <span><br></br>required</span> }
-        <br></br>
+                ref={myContainer}
+              />
+            )}
+          />
+        </div>
+        <div className={styles.gridItem}> 
+          {errors.collectionNameController && errors.collectionNameController.type === "required" && <span><br></br>required</span> }
+        </div>
+      </div>
 
-        <UploadImagesBulk disabled={disabledUpload} collectionName={selectedCollectionName} UserAccount={(Moralis.User.current()).id}/>
+      <div> 
+        10.000 collection size limit, max 600KB file size
+        <HelpButton title="All images in collection need to have same extension and file names need to be number starting with 0. For example 0.jpg, 1.jpg... 9999.jpg" size="18" placement="right" color="white"/>
+      </div>
 
-        <br></br>
+      <UploadImagesBulk 
+        disabled={disabledUpload} 
+        collectionName={selectedCollectionName} 
+        UserAccount={(Moralis.User.current()).id}
+        url="https://easylaunchnft.com/serverUploadImages/bulkCollection" 
+        accept="image/*"  // accept= "jpg,jpeg,png,gif"
+        nextLinkID="uploadmetadataLink"
+        multiple={true}
+        name="demo[]"
+        maxFileSize="6500000000" // total limit, but you only get a notification if a single file is over this limit
+      />
+ 
     </>
   )
 }

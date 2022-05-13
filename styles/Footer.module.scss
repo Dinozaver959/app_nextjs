@@ -1,0 +1,42 @@
+
+.footerContainer {
+    margin: 0 40px;
+}
+
+.footerContainerUpper {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    display: flex;
+}
+
+.footerContainerUpperLeft {
+    display: flex;
+    align-items: center;
+
+}
+
+.footerContainerUpperRight {
+    display: flex;
+
+    align-items: center;
+
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.headerIcon {
+    
+}
+
+
+
+
+.footerContainerLower {
+    border-top: 1px solid;
+    /* border-top-color: rgb(255, 255, 255);  */
+
+    padding-top: 16px;
+    padding-bottom: 40px;
+
+    font-size: 12px;
+}

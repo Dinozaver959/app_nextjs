@@ -1,4 +1,4 @@
-import styles from "../styles/Login.module.css";
+import styles from "../styles/Login.module.scss";
 import Image from "next/image";
 import icon from "../components/images/metamask.webp"; 
 import {useMoralis} from "react-moralis";

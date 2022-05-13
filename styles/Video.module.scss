@@ -1,0 +1,38 @@
+ /*
+ .player_wrapper {
+   position: relative;
+    padding-top: 56.25%;  720 / 1280 = 0.5625
+
+    height: 100%;
+    width: 100%;
+    min-height: 225px;
+}
+  
+.react_player {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.react_video_player {
+    max-width: 80%;
+}
+ */
+/*
+.player_wrapper {
+    width: auto;
+    height: auto;
+}
+.react_player {
+    padding-top: 56.25%; 
+    position: relative; 
+}
+  
+.react_player > div {
+    position: absolute; 
+}
+*/
+
+.video_wrapper {
+    max-width: 720px;
+}

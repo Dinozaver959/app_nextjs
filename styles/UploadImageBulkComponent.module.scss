@@ -1,0 +1,29 @@
+/* fileUpload component 
+
+    need a wrapper for this to work - there is another approach completely in the .js file 
+
+*/
+.fileUploadWrapper  [class="p-fileupload-buttonbar"] {
+    background-color: #343a3f;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.fileUploadWrapper  [class="p-button"] {
+    background-color: #1868b7;
+    border-style: solid;
+    border-color: #ffffff;
+}
+.fileUploadWrapper  [class="p-button:hover"] {
+    background-color: #095095;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.fileUploadWrapper  [class="p-fileupload-content"] {
+    background-color: #343a3f;
+    border-style: solid;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+

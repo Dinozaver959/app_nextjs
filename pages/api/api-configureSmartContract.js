@@ -18,8 +18,9 @@ const apiRoute = nextConnect()
 apiRoute.use(middleware)
 
 
-async function UpdateCollectionInMoralisDB(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName) {
-    
+async function UpdateCollectionInMoralisDB (collectionName, tokenName, tokenSymbol, maxSupply, maxToMint, mintPrice, devAllocation, _ALLOWLIST_, maxSupplyAllowList, maxToMintAllowList, mintPriceAllowList, 
+    _DUTCHAUCTION_, maxSupplyDutchAuction, maxToMintDutchAuction, mintPriceStartDutchAuction, mintPriceEndDutchAuction, durationDutchAuction, priceIntervalDutchAuction, paymentOption) {
+
     const Collections = Moralis.Object.extend("Collections");
     const query = new Moralis.Query(Collections);
     query.equalTo("collectionName", collectionName);
@@ -30,12 +31,27 @@ async function UpdateCollectionInMoralisDB(maxSupply, mintPrice, maxToMint, toke
     if (results.length > 0) {
         const object = results[0];
 
-        object.set("maxSupply", maxSupply);
-        object.set("mintPrice", mintPrice);
-        object.set("maxToMint", maxToMint);
+        object.set("collectionName", collectionName);
         object.set("tokenName", tokenName);
         object.set("tokenSymbol", tokenSymbol);
-        object.set("collectionName", collectionName);
+        object.set("maxSupply", maxSupply);
+        object.set("maxToMint", maxToMint);
+        object.set("mintPrice", mintPrice);
+        object.set("devAllocation", devAllocation);
+
+        object.set("ALLOWLIST", _ALLOWLIST_);
+        object.set("maxSupplyAllowList", maxSupplyAllowList);
+        object.set("maxToMintAllowList", maxToMintAllowList);
+        object.set("mintPriceAllowList", mintPriceAllowList);
+
+        object.set("DUTCHAUCTION", _DUTCHAUCTION_);
+        object.set("maxSupplyDutchAuction", maxSupplyDutchAuction);
+        object.set("maxToMintDutchAuction", maxToMintDutchAuction);
+        object.set("mintPriceStartDutchAuction", mintPriceStartDutchAuction);
+        object.set("mintPriceEndDutchAuction", mintPriceEndDutchAuction);
+        object.set("durationDutchAuction", durationDutchAuction);
+        object.set("priceIntervalDutchAuction", priceIntervalDutchAuction);
+        object.set("paymentOption", paymentOption);
 
         await object.save()
         .then((object) => {
@@ -55,23 +71,56 @@ async function UpdateCollectionInMoralisDB(maxSupply, mintPrice, maxToMint, toke
     }
 }
 
-async function UpdateSettingsFile(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName) {
-    var insertMaxSupply = "MAX_SUPPLY=10000 MAX_SUPPLY=" + maxSupply;
-    var insertMintPrice = "MINT_PRICE=0.095 MINT_PRICE=" + mintPrice;
-    var insertMaxToMint = "MAX_TO_MINT=10 MAX_TO_MINT=" + maxToMint;
+async function UpdateSettingsFile(collectionName, tokenName, tokenSymbol, maxSupply, maxToMint, mintPrice, devAllocation, maxSupplyAllowList, maxToMintAllowList, mintPriceAllowList, 
+    maxSupplyDutchAuction, maxToMintDutchAuction, mintPriceStartDutchAuction, mintPriceEndDutchAuction, durationDutchAuction, priceIntervalDutchAuction, paymentOption) {
+
+    var insertCollectionName = "CONTRACT_NAME " + collectionName;  // keep it like this for now
     var insertTokenName = "_NAME_ " + tokenName;
     var insertTokenSymbol = "_SYMBOL_ " + tokenSymbol;
-    var insertCollectionName = "CONTRACT_NAME " + collectionName;  // keep it like this for now
+    var insertMaxSupply = "MAX_SUPPLY=10000 MAX_SUPPLY=" + maxSupply;
+    var insertmaxToMint = "MAX_PER_ADDRESS_DURING_MINT_PUBLIC=20 MAX_PER_ADDRESS_DURING_MINT_PUBLIC=" + maxToMint;
+    var insertMintPrice = "MINT_PRICE_PUBLIC=0.06 MINT_PRICE_PUBLIC=" + mintPrice;
+    var insertDevAllocation = "AMOUNT_FOR_DEVS=100 AMOUNT_FOR_DEVS=" + devAllocation;
+
+    var insertMaxSupplyAllowList = "AMOUNT_FOR_ALLOWLIST=1000 AMOUNT_FOR_ALLOWLIST=" + maxSupplyAllowList;
+    var insertMaxToMintAllowList = "MAX_PER_ADDRESS_DURING_MINT_ALLOWLIST=3 MAX_PER_ADDRESS_DURING_MINT_ALLOWLIST=" + maxToMintAllowList;
+    var insertMintPriceAllowList = "MINT_PRICE_ALLOWLIST=0.05 MINT_PRICE_ALLOWLIST=" + mintPriceAllowList;
+
+    var insertMaxSupplyDutchAuction = "AMOUNT_FOR_AUCTION=500 AMOUNT_FOR_AUCTION=" + maxSupplyDutchAuction;
+    var insertMaxToMintDutchAuction = "MAX_PER_ADDRESS_DURING_MINT_AUCTION=1 MAX_PER_ADDRESS_DURING_MINT_AUCTION=" + maxToMintDutchAuction;
+    var insertMintPriceStartDutchAuction = "AUCTION_START_PRICE=1 AUCTION_START_PRICE=" + mintPriceStartDutchAuction;
+    var insertMintPriceEndDutchAuction = "AUCTION_END_PRICE=0.15 AUCTION_END_PRICE=" + mintPriceEndDutchAuction;
+    var insertDurationDutchAuction = "AUCTION_PRICE_CURVE_LENGTH=340 AUCTION_PRICE_CURVE_LENGTH=" + durationDutchAuction;
+    var insertPriceIntervalDutchAuction = "AUCTION_DROP_INTERVAL=20 AUCTION_DROP_INTERVAL=" + priceIntervalDutchAuction;
+
+    
+    var insertPlatformRoyalty;
+    if(paymentOption == 'royalty' || paymentOption == 'Royalty'){
+        insertPlatformRoyalty = "PLATFORM_ROYALTY=200 PLATFORM_ROYALTY=50"; // 5%
+    } else {
+        insertPlatformRoyalty = "PLATFORM_ROYALTY=200 PLATFORM_ROYALTY=0";  // 0%
+    }
 
     var stringToWrite = 
-        insertMaxSupply + "\n" +
-        insertMintPrice + "\n" +
-        insertMaxToMint + "\n" +
+        insertCollectionName + "\n" +        
         insertTokenName + "\n" +
         insertTokenSymbol + "\n" +
-        insertCollectionName;
+        insertMaxSupply + "\n" +
+        insertmaxToMint + "\n" +
+        insertMintPrice + "\n" +
+        insertDevAllocation + "\n" +
+        insertMaxSupplyAllowList + "\n" +
+        insertMaxToMintAllowList + "\n" +
+        insertMintPriceAllowList + "\n" +
+        insertMaxSupplyDutchAuction + "\n" +
+        insertMaxToMintDutchAuction + "\n" +
+        insertMintPriceStartDutchAuction + "\n" +
+        insertMintPriceEndDutchAuction + "\n" +
+        insertDurationDutchAuction + "\n" +
+        insertPriceIntervalDutchAuction + "\n" +
+        insertPlatformRoyalty;
 
-    fs.writeFileSync(path.join(__dirname, "..", "..", "..", "..", "PowerShell", "TEMPLATE_CM", "Settings.txt"), stringToWrite, function (err) {
+    fs.writeFileSync(path.join(__dirname, "..", "..", "..", "..", "PowerShell", "TEMPLATE_AZUKI", "Settings.txt"), stringToWrite, function (err) {
         if (err) {
             return console.log(err);
         }
@@ -79,10 +128,9 @@ async function UpdateSettingsFile(maxSupply, mintPrice, maxToMint, tokenName, to
         LogBackend("The Settings.txt file was saved!");
     })
 
-
     
-    // now copy the dir "PowerShell/TEMPLATE_CM"   to "PowerShell/CollectionName"
-    const srcDir = path.join(__dirname, "..", "..", "..", "..", "PowerShell", "TEMPLATE_CM");
+    // now copy the dir "PowerShell/TEMPLATE_AZUKI"   to "PowerShell/CollectionName"
+    const srcDir = path.join(__dirname, "..", "..", "..", "..", "PowerShell", "TEMPLATE_AZUKI");
     const destDir = path.join(__dirname, "..", "..", "..", "..", "PowerShell", collectionName);
 
     fse.copySync(srcDir, destDir, { overwrite: true }, function (err) {
@@ -118,16 +166,45 @@ async function RunCompileSmartContractScript(collectionName) {
 
 apiRoute.post(async (req, res) => {
 
-    var maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName, userAccount;
+    var collectionName, userAccount, tokenName, tokenSymbol, maxSupply, maxToMint, mintPrice, 
+    devAllocation, _ALLOWLIST_, _DUTCHAUCTION_, paymentOption;
+
+    var maxSupplyAllowList, maxToMintAllowList, mintPriceAllowList;
+    maxSupplyAllowList = maxToMintAllowList = mintPriceAllowList = 0;
+    var maxSupplyDutchAuction, maxToMintDutchAuction, mintPriceStartDutchAuction, 
+    mintPriceEndDutchAuction, durationDutchAuction, priceIntervalDutchAuction;
+    maxSupplyDutchAuction = maxToMintDutchAuction = mintPriceStartDutchAuction = mintPriceEndDutchAuction = 0;
+    durationDutchAuction = priceIntervalDutchAuction = 1; // avoid division by 0
 
     if (DOMPurify.isSupported) {
-        maxSupply = DOMPurify.sanitize(req.body.MAX_SUPPLY[0]);
-        mintPrice = DOMPurify.sanitize(req.body.MINT_PRICE[0]);
-        maxToMint = DOMPurify.sanitize(req.body.MAX_TO_MINT[0]);
-        tokenName = DOMPurify.sanitize(req.body._NAME_[0]);
-        tokenSymbol = DOMPurify.sanitize(req.body._SYMBOL_[0]);
         collectionName = DOMPurify.sanitize(req.body.CollectionName[0]);
         userAccount = DOMPurify.sanitize(req.body.UserAccount[0]);
+        tokenName = DOMPurify.sanitize(req.body._NAME_[0]);
+        tokenSymbol = DOMPurify.sanitize(req.body._SYMBOL_[0]);
+
+        maxSupply = parseInt(DOMPurify.sanitize(req.body.MAX_SUPPLY[0]));
+        maxToMint = parseInt(DOMPurify.sanitize(req.body.MAX_TO_MINT[0]));
+        mintPrice = parseFloat(DOMPurify.sanitize(req.body.MINT_PRICE[0]));
+        devAllocation = parseInt(DOMPurify.sanitize(req.body.DEV_ALLOCATION[0]));
+        
+        _ALLOWLIST_ = DOMPurify.sanitize(req.body._ALLOWLIST_[0]);
+        if(_ALLOWLIST_ == "Yes" || _ALLOWLIST_ == 'YES' || _ALLOWLIST_ == 'yes'){
+            maxSupplyAllowList = parseInt(DOMPurify.sanitize(req.body.MAX_SUPPLY_ALLOWLIST[0]));
+            maxToMintAllowList = parseInt(DOMPurify.sanitize(req.body.MAX_TO_MINT_ALLOWLIST[0]));
+            mintPriceAllowList = parseFloat(DOMPurify.sanitize(req.body.MINT_PRICE_ALLOWLIST[0]));            
+        }
+
+        _DUTCHAUCTION_ = DOMPurify.sanitize(req.body._DUTCHAUCTION_[0]);
+        if(_DUTCHAUCTION_ == "Yes" || _DUTCHAUCTION_ == 'YES' || _DUTCHAUCTION_ == 'yes'){
+            maxSupplyDutchAuction = parseInt(DOMPurify.sanitize(req.body.MAX_SUPPLY_DUTCHAUCTION[0]));
+            maxToMintDutchAuction = parseInt(DOMPurify.sanitize(req.body.MAX_TO_MINT_DUTCHAUCTION[0]));
+            mintPriceStartDutchAuction = parseFloat(DOMPurify.sanitize(req.body.MINT_PRICE_DUTCHAUCTION_START[0]));
+            mintPriceEndDutchAuction = parseFloat(DOMPurify.sanitize(req.body.MINT_PRICE_DUTCHAUCTION_END[0]));
+            durationDutchAuction = parseInt(DOMPurify.sanitize(req.body.DURATION_DUTCHAUCTION[0]));
+            priceIntervalDutchAuction = parseInt(DOMPurify.sanitize(req.body.PRICE_INTERVAL_DUTCHAUCTION[0]));
+        }
+
+        paymentOption = DOMPurify.sanitize(req.body._OPTION_[0]);
     }
 
     // if user does not owns the collection - redirect to home page
@@ -137,8 +214,40 @@ apiRoute.post(async (req, res) => {
         res.status(501).end("nope...not gonna work");
     }
     
-    UpdateCollectionInMoralisDB(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName);
-    UpdateSettingsFile(maxSupply, mintPrice, maxToMint, tokenName, tokenSymbol, collectionName);
+
+
+
+    console.log("collectionName: " + collectionName)
+    console.log("tokenName: " + tokenName)
+    console.log("tokenSymbol: " + tokenSymbol)
+    console.log("maxSupply: " + maxSupply)
+    console.log("maxToMint: " + maxToMint)
+    console.log("mintPrice: " + mintPrice)
+    console.log("devAllocation: " + devAllocation)
+    console.log("_ALLOWLIST_: " + _ALLOWLIST_)
+    console.log("maxSupplyAllowList: " + maxSupplyAllowList)
+    console.log("maxToMintAllowList: " + maxToMintAllowList)
+    console.log("mintPriceAllowList: " + mintPriceAllowList)
+
+    console.log("_DUTCHAUCTION_: " + _DUTCHAUCTION_)
+    console.log("maxSupplyDutchAuction: " + maxSupplyDutchAuction)
+    console.log("maxToMintDutchAuction: " + maxToMintDutchAuction)
+    console.log("mintPriceStartDutchAuction: " + mintPriceStartDutchAuction)
+    console.log("mintPriceEndDutchAuction: " + mintPriceEndDutchAuction)
+    console.log("durationDutchAuction: " + durationDutchAuction)
+    console.log("priceIntervalDutchAuction: " + priceIntervalDutchAuction)
+
+    console.log("paymentOption: " + paymentOption)
+
+
+
+
+    UpdateCollectionInMoralisDB(collectionName, tokenName, tokenSymbol, maxSupply, maxToMint, mintPrice, devAllocation, _ALLOWLIST_, maxSupplyAllowList, maxToMintAllowList, mintPriceAllowList, 
+        _DUTCHAUCTION_, maxSupplyDutchAuction, maxToMintDutchAuction, mintPriceStartDutchAuction, mintPriceEndDutchAuction, durationDutchAuction, priceIntervalDutchAuction, paymentOption);
+
+    UpdateSettingsFile(collectionName, tokenName, tokenSymbol, maxSupply, maxToMint, mintPrice, devAllocation, maxSupplyAllowList, maxToMintAllowList, mintPriceAllowList, 
+        maxSupplyDutchAuction, maxToMintDutchAuction, mintPriceStartDutchAuction, mintPriceEndDutchAuction, durationDutchAuction, priceIntervalDutchAuction, paymentOption);
+
     RunCompileSmartContractScript(collectionName);
 
     res.status(201).end("configuration added and smart contract created");
